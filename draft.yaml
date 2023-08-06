@@ -1,0 +1,50 @@
+models:
+  Category:
+      name: string unique index
+      image: string nullable
+      status: boolean default:true
+  Api:
+      name: string unique
+      url: string
+      key : string
+      status: enum:active,unactive
+      description: mediumText   
+  Service:
+      name: string unique index
+      category_id: id foreign
+      min_qte : mediumInteger default:1
+      max_qte : mediumInteger 
+      price: double 
+      status: enum:active,unactive
+      type: enum:default default:default
+      quality:  enum:normal,medium,excellent
+      partial_process: boolean default:false
+      data_source: enum:manual,api default:manual
+      api_id: id foreign
+      api_service_id: unsignedInteger nullable
+  Order:
+      order_number: integer unique index
+      service_id: id foreign
+      user_id: id foreign
+      link : string nullable
+      amount: double default:0
+      price: double 
+      status: string nullable    
+
+controllers:
+  Front\Service:
+    index:
+      query: all 
+      resource: paginate:services
+      render: service.index with:services
+  Front\Order:
+    index:
+      query: all 
+      resource: paginate:orders
+      render: order.index with:orders
+  Front\Api:
+    index:
+      query: all 
+      resource: paginate:apis
+      render: api.index with:apis
+seeders: Category,Api,Service,Order

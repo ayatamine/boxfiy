@@ -1,0 +1,37 @@
+created:
+    - app/Http/Controllers/Front/ServiceController.php
+    - app/Http/Controllers/Front/OrderController.php
+    - app/Http/Controllers/Front/ApiController.php
+    - database/factories/CategoryFactory.php
+    - database/factories/ApiFactory.php
+    - database/factories/ServiceFactory.php
+    - database/factories/OrderFactory.php
+    - database/migrations/2023_08_06_090830_create_categories_table.php
+    - database/migrations/2023_08_06_090831_create_apis_table.php
+    - database/migrations/2023_08_06_090832_create_services_table.php
+    - database/migrations/2023_08_06_090833_create_orders_table.php
+    - app/Models/Category.php
+    - app/Models/Api.php
+    - app/Models/Service.php
+    - app/Models/Order.php
+    - database/seeders/CategorySeeder.php
+    - database/seeders/ApiSeeder.php
+    - database/seeders/ServiceSeeder.php
+    - database/seeders/OrderSeeder.php
+    - tests/Feature/Http/Controllers/Front/ServiceControllerTest.php
+    - tests/Feature/Http/Controllers/Front/OrderControllerTest.php
+    - tests/Feature/Http/Controllers/Front/ApiControllerTest.php
+    - app/Http/Resources/Front/ServiceCollection.php
+    - app/Http/Resources/Front/OrderCollection.php
+    - app/Http/Resources/Front/ApiCollection.php
+    - resources/views/service/index.blade.php
+    - resources/views/order/index.blade.php
+    - resources/views/api/index.blade.php
+updated:
+    - routes/web.php
+models:
+    User: {  }
+    Category: { name: 'string unique index', image: 'string nullable', status: 'boolean default:true' }
+    Api: { name: 'string unique', url: string, key: string, status: 'enum:active,unactive', description: mediumText }
+    Service: { name: 'string unique index', category_id: 'id foreign', min_qte: 'mediumInteger default:1', max_qte: mediumInteger, price: double, status: 'enum:active,unactive', type: 'enum:default default:default', quality: 'enum:normal,medium,excellent', partial_process: 'boolean default:false', data_source: 'enum:manual,api default:manual', api_id: 'id foreign', api_service_id: 'unsignedInteger nullable' }
+    Order: { order_number: 'integer unique index', service_id: 'id foreign', user_id: 'id foreign', link: 'string nullable', amount: 'double default:0', price: double, status: 'string nullable' }

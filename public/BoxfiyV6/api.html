@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <title>API Documentation</title>
+
+    <!-- Styles -->
+
+    <link rel="styleSheet" href="css/normalize.css">
+    <link rel="styleSheet" href="css/all.min.css">
+    <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
+    <link rel="icon" href="images/logo/5464356.png" src="images/logo/5464356.png">
+    <link rel="styleSheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/6.4.8/swiper-bundle.min.css" />
+    <link rel="styleSheet" href="css/front.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/api.css">
+
+    <!-- FontAwesome Cdn -->
+    <link rel="stylesheet" href="css/aos.css" />
+    <link rel="stylesheet" type="text/css" href="css/animate.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer"
+    />
+
+
+</head>
+
+<body>
+
+   <!-- Start Navbar Section -->
+
+
+   <nav>
+    <div class="container">
+        <div class="row">
+            <div class="nav-content">
+                <div class="logo"><img src="images/logo/133413485_388547598914031_8784098996627337073_n.png">
+                </div>
+
+
+                <div class="nav-elements">
+
+                    <ul>
+                        <li>
+                            <a href="About-us.html">About Us</a>
+                        </li>
+
+
+                        <li>
+                            <a href="Terms.html">Terms</a>
+                        </li>
+
+                        <li>
+                            <a href="api.html">API</a>
+                        </li>
+
+
+                        <li>
+                            <a href="Services.html">Services</a>
+                        </li>
+
+                        <li id="login">
+                            <a href="email-login.html">Login</a>
+                        </li>
+
+
+                        <li id="signin">
+                            <a href="signup.html">Signup</a>
+                        </li>
+                    </ul>
+                    <i class="open-mobile-nav fa-solid fa-bars"></i>
+
+                </div>
+
+
+                <div class="mobile-nav">
+                    <ul>
+                        <li style="list-style: none"><i class="close-nav fa-solid fa-xmark"></i>
+                        </li>
+
+
+                        <li>
+                            <a href="About-us.html">About Us</a>
+                        </li>
+
+
+                        <li>
+                            <a href="Terms.html">Terms</a>
+                        </li>
+
+
+                        <li>
+                            <a href="api.html">API</a>
+                        </li>
+
+
+                        <li>
+                            <a href="Services.html">Services</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+<!-- End Navbar Section -->
+
+<!--Start Header Part-->
+<div class="container">
+<div class="row">
+    <div class="Header-part">
+        <div class="taps">
+            <section class="api activ">API</section>
+            <section class="ex ">Example Of Code</section>
+        </div>
+        <ul id="Top-part" class="row">
+            <li class="col-6">HTTP METHOD</li>
+            <li class="col-6">POST</li>
+        </ul>
+
+        <ul  class="row">
+            <li class="col-6">API URL</li>
+            <li class="col-6"> <a href="https://smmcpan.com/api/v2">Click Here</a> </li>
+        </ul>
+
+        <ul  class="row">
+            <li class="col-6">Response format	</li>
+            <li class="col-6">JSON</li>
+        </ul>
+    </div>
+</div>
+
+</div>
+<!--end Header Part-->
+
+<!--Start Code Part-->
+<div class="container">
+    <div class="row">
+        <div class="table">
+        <div class="code-part">
+            <div class="taps">
+                <section style="padding: 20px;background-color:#2e384c;" class=" tap2 activ">Service List</section>
+            </div>
+            <ul id="Top-part" class="row">
+                <li class="col-6">Parameters</li>
+                <li class="col-6">DESCRIPTION</li>
+            </ul>
+    
+            <ul  class="row">
+                <li class="col-6">Key</li>
+                <li class="col-6">Your API key</li>
+            </ul>
+    
+            <ul  class="row">
+                <li class="col-6">Action</li>
+                <li class="col-6">Services</li>
+            </ul>
+            <div class="code">
+                <i onclick="copy()" id="copy" class="fa-solid fa-copy"></i>
+                <span class="right-btns"></span>
+        <p id="code">
+            [
+            {
+                "service": 1,
+                "name": "Followers",
+                "type": "Default",
+                "category": "First Category",
+                "rate": "0.90",
+                "min": "50",
+                "max": "10000",
+                "refill": true,
+                "cancel": true
+            },
+            {
+                "service": 2,
+                "name": "Comments",
+                "type": "Custom Comments",
+                "category": "Second Category",
+                "rate": "8",
+                "min": "10",
+                "max": "1500",
+                "refill": false,
+                "cancel": true
+            }
+        ]
+
+        </p>
+            </div>
+        </div>
+    </div>
+
+    </div>
+    
+    </div>
+
+
+
+
+<!--end Code Part-->
+
+
+<script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            offset: 200,
+            delay: 100,
+            duration: 1000,
+        });
+    </script>
+
+    <script src="js/jquery-3.6.0.min.js"></script>
+    <script src="js/smtp.js"></script>
+
+    <script src="js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/6.4.8/swiper-bundle.min.js"></script>
+    <script defer>
+        jQuery(document).ready(function() {
+            jQuery('.loading').fadeOut(1000);
+        });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12 "></script>
+    <script src="js/front.js"></script>    <script src="/js/Services.js"></script>
+</body>
+</html>
+
+</html>

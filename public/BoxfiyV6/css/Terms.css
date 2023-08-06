@@ -1,0 +1,39 @@
+
+.terms > section{
+    background-color: #ffffff14;
+    border-radius: 25px;
+    margin-bottom: 40px;
+    text-align: right;
+    padding: 50px;
+    }
+    
+    .one{
+        background: url(/images/backgrounds/Untitled\ \(2\)_page-0004.jpg);
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        color: #F0F0F0;
+        font-family: CarosSoftBold;
+
+    }
+ 
+    
+    .terms > section >h1{
+        color: #AAAAAA;
+        text-align: left;
+        font-family: CarosSoftBold;
+        font-size: 25px;
+        
+
+    }
+    
+    .one,.two,.three,.four,.five,.six{
+        opacity: 0;
+        transition-duration: 1s;
+    }
+    .one{
+        transition-delay: 0.1s;
+    }
+    .two{
+    transition-delay: 0.2s;
+    }

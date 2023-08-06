@@ -1,0 +1,123 @@
+body{
+    background:url("../images/backgrounds/Untitled\ \(2\)_page-0005.jpg");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.Header-part{
+    font-weight: 700;
+    color: white;
+    font-family: CarosSoftBold;
+    border-radius: 12px;
+    margin-top: 100px;
+    background-color: #2e384c;
+font-size: 20px;
+padding: 30px;
+position: relative;
+}
+
+.api{
+    position: absolute;
+    background:url(/images/backgrounds/Untitled\ \(2\)_page-0004.jpg);
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    top: -50px;
+    padding: 20px;
+    border-radius: 12px;
+    cursor: pointer;
+    transition-duration: 0.3s;
+    border-radius: 12px 5px 12px 5px ;
+}
+
+.ex{
+    position: absolute;
+    background:url(/images/backgrounds/Untitled\ \(2\)_page-0004.jpg);
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    top: -50px;
+    left: 110px;
+    padding: 20px;
+    padding-bottom: 0;
+    border-radius: 12px 5px 0px 10px ;
+    cursor: pointer;
+    transition-duration: 0.3s;
+}
+
+
+
+#Top-part{
+    background-color:#282c34;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    border-radius: 12px;
+    padding: 10px;
+
+}
+
+.code-part{
+    font-weight: 700;
+    color: white;
+    font-family: CarosSoftBold;
+    border-radius: 12px;
+    margin-top: 140px;
+    background-color: #2e384c;
+font-size: 20px;
+padding: 30px;
+position: relative;
+}
+
+.code{
+    background-color: #282c34;
+    border-color: #282c34;
+    border-radius: 12px;
+    color: #fdf001;
+    padding: 60px 30px 30px;
+    position: relative;
+}
+
+#copy{
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    cursor: pointer;
+}
+
+.right-btns {
+    background-image: url(https://res.cloudinary.com/smmcpan2/image/upload/v1636057869/0k2sczwlq39hgtom.png);
+    width: 50px;
+    height: 15px;
+    display: block;
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background-size: 100% 100%;
+}
+
+
+
+.api:hover{
+    background:#2e384c;
+}
+
+.ex:hover{
+    background:#2e384c;
+}
+
+.activ{
+    background:#2e384c;
+}
+
+
+.tap2{
+    position: absolute;
+    top: -50px;
+    left: 60px;
+    border-radius: 12px 5px 12px 5px ;
+    cursor: pointer;
+    transition-duration: 0.3s;
+}
+
