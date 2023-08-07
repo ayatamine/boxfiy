@@ -10,12 +10,15 @@
 
                     <ul>
                         <li>
-                            <a href="About-us.html">About Us</a>
+                            <a href="{{route('about')}}">About Us</a>
                         </li>
 
 
                         <li>
-                            <a href="Terms.html">Terms</a>
+                            <a href="{{route('terms')}}">Terms</a>
+                        </li>
+                        <li>
+                            <a href="{{route('terms')}}">Policy</a>
                         </li>
 
                         <li>
@@ -29,10 +32,10 @@
                         @auth   
                         <div class="user-info">
                             <a href="#"><img src="{{asset('boxfiyV6/images/icons/10.png')}}"></a>
-                            <img src="{{asset('boxfiyV6/images/user.png')}}">
+                            <img src="{{auth()->user()->thumbnail}}">
                             <div class="info">
                                 <h3>Good evening!</h3>
-                                <h1>{{auth()->user()->name}}</h1>
+                                <h1>{{fullName()}}</h1>
                             </div>
                         </div>
                         @else
@@ -57,12 +60,15 @@
 
 
                         <li>
-                            <a href="About-us.html">About Us</a>
+                            <a href="{{route('about')}}">About Us</a>
                         </li>
 
 
                         <li>
-                            <a href="Terms.html">Terms</a>
+                            <a href="{{route('terms')}}">Terms</a>
+                        </li>
+                        <li>
+                            <a href="Terms.html">Policy</a>
                         </li>
 
 

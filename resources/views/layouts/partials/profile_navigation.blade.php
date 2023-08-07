@@ -25,10 +25,10 @@
 
                     <div class="user-info">
                         <a href="#"><img src="{{asset('boxfiyV6/images/icons/10.png')}}"></a>
-                        <img src="{{asset('boxfiyV6/images/user.png')}}">
+                        <img src="{{auth()->user()->thumbnail}}">
                         <div class="info">
                             <h3>Good evening!</h3>
-                            <h1>{{auth()->user()->name}}</h1>
+                            <h1>{{fullName()}}</h1>
                         </div>
                     </div>
                 </div>
@@ -56,10 +56,10 @@
                         @else
                         <div class="user-info">
                             <a href="#"><img src="{{asset('boxfiyV6/images/icons/10.png')}}"></a>
-                            <img src="{{asset('boxfiyV6/images/user.png')}}">
+                            <img src="{{auth()->user()->thumbnail}}">
                             <div class="info">
                                 <h3>Good evening!</h3>
-                                <h1>{{auth()->user()->name}}</h1>
+                                <h1>{{fullName()}}</h1>
                             </div>
                         </div>
                         @endguest

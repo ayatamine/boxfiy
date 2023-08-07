@@ -59,31 +59,12 @@ Route::middleware('auth')->group(function () {
     Route::get('profile', UserProfile::class)
         ->name('profile');
 });
+Route::get('about-us', [App\Http\Controllers\Front\HomeController::class,'aboutUs'])->name('about');
+Route::get('terms-and-conditions', [App\Http\Controllers\Front\HomeController::class,'Terms'])->name('terms');
 
+// Route::resource('service', App\Http\Controllers\Front\ServiceController::class)->only('index');
 
-Route::resource('service', App\Http\Controllers\Front\ServiceController::class)->only('index');
+// Route::resource('order', App\Http\Controllers\Front\OrderController::class)->only('index');
 
-Route::resource('order', App\Http\Controllers\Front\OrderController::class)->only('index');
+// Route::resource('api', App\Http\Controllers\Front\ApiController::class)->only('index');
 
-Route::resource('api', App\Http\Controllers\Front\ApiController::class)->only('index');
-
-
-Route::resource('service', App\Http\Controllers\Front\ServiceController::class)->only('index');
-
-Route::resource('order', App\Http\Controllers\Front\OrderController::class)->only('index');
-
-Route::resource('api', App\Http\Controllers\Front\ApiController::class)->only('index');
-
-
-Route::resource('service', App\Http\Controllers\Front\ServiceController::class)->only('index');
-
-Route::resource('order', App\Http\Controllers\Front\OrderController::class)->only('index');
-
-Route::resource('api', App\Http\Controllers\Front\ApiController::class)->only('index');
-
-
-Route::resource('service', App\Http\Controllers\Front\ServiceController::class)->only('index');
-
-Route::resource('order', App\Http\Controllers\Front\OrderController::class)->only('index');
-
-Route::resource('api', App\Http\Controllers\Front\ApiController::class)->only('index');

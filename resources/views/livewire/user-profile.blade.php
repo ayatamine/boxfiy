@@ -5,11 +5,15 @@
 <section class="profile">
     <div class="container">
         <div class="row">
-            <form action="" method="" wire:submit.prevent="updateProfile">
+            <form action="" method="" wire:submit.prevent="updateProfile" enctype="multipart/form-data">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="user-image-name">
-                        <img src="{{asset('boxfiyV6/images/user.png')}}">
-                        <h1>USER NAME</h1>
+                        <label for="thumbnail" class="relative cursor-pointer">
+                            <span class="w-full text-center absolute bottom-0 left-0 bg-blue-400 text-white">Change</span>
+                            <img @if(!$tomporary_image) src="{{auth()->user()->thumbnail}}" @else src="{{ $thumbnail->temporaryUrl() }}" @endif>
+                        </label>
+                        <input class="hidden" wire:model="thumbnail" type="file" name="" id="thumbnail">
+                        <h1>{{fullName()}}</h1>
                     </div>
                 </div>
 
