@@ -21,4 +21,8 @@ class HomeController extends Controller
         $page = Page::where('title','like',"%terms%")->orWhere('slug','like',"%terms%")->first();
         return view('terms',compact('page'));
     }
+    public function privacy()
+    {
+        return view('privacy');
+    }
 }

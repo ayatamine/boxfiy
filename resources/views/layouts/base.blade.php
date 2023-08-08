@@ -34,11 +34,8 @@
         style="background-image: linear-gradient(1300deg,#dd8500,#0d0d19,#0d0d19,#0d0d19,#0d0d19,#0d0d19,#fe9900,#fe9900);"
             @break
         @case('profile')
-            style=""
-            @break
         @case('about-us')
-            style=""
-            @break
+        @case('privacy-policy')
         @case(\Str::contains(Request::segment(1),'term'))
             style=""
             @break

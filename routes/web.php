@@ -61,6 +61,7 @@ Route::middleware('auth')->group(function () {
 });
 Route::get('about-us', [App\Http\Controllers\Front\HomeController::class,'aboutUs'])->name('about');
 Route::get('terms-and-conditions', [App\Http\Controllers\Front\HomeController::class,'Terms'])->name('terms');
+Route::get('privacy-policy', [App\Http\Controllers\Front\HomeController::class,'privacy'])->name('privacy');
 
 // Route::resource('service', App\Http\Controllers\Front\ServiceController::class)->only('index');
 

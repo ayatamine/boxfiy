@@ -7,8 +7,8 @@ export default defineConfig({
             input: ['resources/css/app.css', 'resources/js/app.js','resources/css/filament.css','resources/sass/app.scss'],
             refresh: [
                 ...refreshPaths,
-                'app/Http/Livewire/**',
-                'app/Forms/Components/**',
+                // 'app/Http/Livewire/**',
+                // 'app/Forms/Components/**',
                 'app/Filament/Resources/**',
             ],
         }),

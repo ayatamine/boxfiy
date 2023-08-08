@@ -43,7 +43,7 @@ class User extends Authenticatable
         'password',
         'remember_token',
     ];
-
+    protected $appends=['verified_email'];
     /**
      * The attributes that should be cast.
      *
@@ -59,6 +59,14 @@ class User extends Authenticatable
             get: function ($value){
                 if(Str::startsWith($value,'thumbnails')) return url('storage/'.$value);
                 return generate_avatar(fullName());
+            }
+        );
+    }
+    public function verifiedEmail():Attribute
+    {
+        return Attribute::make(
+            get: function($value){
+                return !is_null($this->email_verified_at);
             }
         );
     }

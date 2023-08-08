@@ -18,7 +18,7 @@
                             <a href="{{route('terms')}}">Terms</a>
                         </li>
                         <li>
-                            <a href="{{route('terms')}}">Policy</a>
+                            <a href="{{route('privacy')}}">Privacy</a>
                         </li>
 
                         <li>
@@ -68,7 +68,7 @@
                             <a href="{{route('terms')}}">Terms</a>
                         </li>
                         <li>
-                            <a href="Terms.html">Policy</a>
+                            <a href="{{route('privacy')}}">Privacy</a>
                         </li>
 
 
