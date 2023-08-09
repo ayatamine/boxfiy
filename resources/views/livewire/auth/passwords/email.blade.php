@@ -1,5 +1,5 @@
 @section('title', 'Reset password')
-
+{{-- 
 <div>
     <div class="sm:mx-auto sm:w-full sm:max-w-md">
         <a href="{{ route('home') }}">
@@ -56,4 +56,42 @@
             @endif
         </div>
     </div>
-</div>
+</div> --}}
+
+
+<section class="signup">
+    <div class="container">
+        <div class="row">
+            <div class="signup-content">
+                <div class="text">
+                    <h1>#1 SMM PANEL IN THE WORLD FOR <span class="yellow">8 YEARS!</span></h1>
+
+                    <form class="flex items-center" action="" method=""  wire:submit.prevent="sendResetPasswordLink">
+
+                        <div class="input w-2/3">
+                            <label><img src="{{asset('boxfiyV6/images/icons/18.png')}}"></label>
+                            <input wire:model.lazy="email" placeholder="Email" type="email" name="" class="">
+                            @error('email')
+                            <p class="mt-2 text-lg text-red-600">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+
+                        <button type="submit" class="w-1/3 !m-0">
+                            Send 
+                            <span wire:loading class="animate-bounce">...</span>
+                        </button>
+                    </form>
+                </div>
+
+                <div class="images">
+                    <img src="{{asset('boxfiyV6/images/icons/3.png')}}">
+                    <img src="{{asset('boxfiyV6/images/icons/2.png')}}">
+                    <img src="{{asset('boxfiyV6/images/icons/4.png')}}">
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>

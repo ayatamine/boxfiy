@@ -10,19 +10,11 @@
                 <div class="landing-content">
                     <div class="text">
                         <h1>#1 SMM PANEL IN THE WORLD FOR <span class="yellow">8 YEARS!</span></h1>
+                        @guest
+                        <livewire:home-login>
+                        <a href="{{route('password.request')}}">forget password?</a>
 
-                        <form action="" method="">
-                            <div  class="input email-home">
-                                <label><img src="{{asset('BoxfiyV6/images/icons/17.png')}}"></label>
-                                <input placeholder="Email" type="email" name="" class="">
-                            </div>
-                            <div  class="input password-home">
-                                <label><img src="{{asset('BoxfiyV6/images/icons/18.png')}}"></label>
-                                <input placeholder="Password" type="password" name="" class="">
-                            </div>
-                            <button type="submit">login</button>
-                        </form>
-                        <a href="#">forget password?</a>
+                        @endguest
                     </div>
 
                     <div class="images">
@@ -32,11 +24,12 @@
 
                     </div>
                 </div>
-
+                @guest
                 <div class="signup-text">
                     <h2>Don't have an account?</h2>
                     <a href="{{route('register')}}">SIGNUP NOW!</a>
                 </div>
+                @endguest
             </div>
         </div>
     </section>

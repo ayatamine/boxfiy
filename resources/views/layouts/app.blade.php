@@ -6,4 +6,6 @@
     @isset($slot)
         {{ $slot }}
     @endisset
+
+    @livewire('notifications')
 @endsection

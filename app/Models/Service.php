@@ -28,6 +28,7 @@ class Service extends Model
         'data_source',
         'api_id',
         'api_service_id',
+        'description'
     ];
 
     /**

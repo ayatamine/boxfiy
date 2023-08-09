@@ -1,5 +1,5 @@
 body{
-    background:url("../images/backgrounds/Untitled\ \(2\)_page-0005.jpg");
+    background:url("../images/backgrounds/Untitled(2)_page-0005.jpg");
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
@@ -19,7 +19,7 @@ position: relative;
 
 .api{
     position: absolute;
-    background:url(/images/backgrounds/Untitled\ \(2\)_page-0004.jpg);
+    background:url('../images/backgrounds/Untitled(2)_page-0004.jpg');
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
@@ -33,7 +33,7 @@ position: relative;
 
 .ex{
     position: absolute;
-    background:url(/images/backgrounds/Untitled\ \(2\)_page-0004.jpg);
+    background:url('../images/backgrounds/Untitled(2)_page-0004.jpg');
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;

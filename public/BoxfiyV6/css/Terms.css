@@ -8,7 +8,7 @@
     }
     
     .one{
-        background: url(/images/backgrounds/Untitled\ \(2\)_page-0004.jpg);
+        background: url('../images/backgrounds/Untitled(2)_page-0004.jpg');
         background-position: center;
         background-repeat: no-repeat;
         background-size: cover;

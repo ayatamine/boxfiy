@@ -6,7 +6,7 @@
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/6.4.8/swiper-bundle.min.css" />
 
-
+@stack('style-c')
 <link rel="styleSheet" href="{{asset('BoxfiyV6/css/front.css')}}">
 
 

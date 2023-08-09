@@ -43,7 +43,7 @@
                             <a href="#">API</a>
                         </li>
                         <li>
-                            <a href="#">services</a>
+                            <a href="{{route('services')}}">services</a>
                         </li>
                         @guest
                             

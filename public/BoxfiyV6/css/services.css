@@ -6,7 +6,7 @@
     color: white;
     font-family: CarosSoftBold;
     border-radius: 12px;
-    background: url(/images/backgrounds/Untitled\ \(2\)_page-0004.jpg);
+    background: url('../images/backgrounds/Untitled(2)_page-0004.jpg');
     background-position: right;
     margin-top: 210px;
     transition-duration: 0.8s;

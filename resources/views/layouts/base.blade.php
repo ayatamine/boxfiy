@@ -36,6 +36,8 @@
         @case('profile')
         @case('about-us')
         @case('privacy-policy')
+        @case('login')
+        @case('services')
         @case(\Str::contains(Request::segment(1),'term'))
             style=""
             @break

@@ -2,6 +2,8 @@
 
 namespace App\Filament\Resources;
 
+use Closure;
+use App\Models\Api;
 use Filament\Forms;
 use Filament\Tables;
 use App\Models\Service;
@@ -18,7 +20,7 @@ class ServiceResource extends Resource
 {
     protected static ?string $model = Service::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-collection';
+    protected static ?string $navigationIcon = 'icons.services';
 
     public static function form(Form $form): Form
     {   
@@ -53,37 +55,50 @@ class ServiceResource extends Resource
                 ]),
             Forms\Components\Grid::make(2)
                 ->schema([
+                    Forms\Components\TextInput::make('price')->numeric()->required(),
                     Forms\Components\Select::make('status')
                     ->options(['active' => __('Active'),'unactive'=>__('Inactive')])
-                    ->columnSpan('full')
+                    ->required(),
                 ]),
             Forms\Components\Grid::make(2)
                 ->schema([
                     Forms\Components\Select::make('quality')->label(__('Quality'))
                     ->options(['normal' => __('Normal'),'medium'=>__('Medium'),'excellent'=>__('Excellent')])
+                    ->required()
                     ->columnSpan('full'),
                 ]),
             Forms\Components\Grid::make(2)
                 ->schema([
                     Forms\Components\Select::make('partial_process')->label(__('Partial Process'))
                     ->options([1 => __('Active'),0=>__('InActive')])
+                    ->required()
                     ->columnSpan('full')
                 ]),
             Forms\Components\Grid::make(2)
                 ->schema([
-                    Forms\Components\Radio::make('data_source')->label(__('Data Source'))
+                    Forms\Components\Radio::make('data_source')->label(__('Data Source?'))
                     ->options([
                         'manual' => 'Manual',
                         'api' => 'API'
                     ])
+                    ->required()
+                    ->inline()
+                    ->reactive()
                 ]),
             Forms\Components\Grid::make(2)
                 ->schema([
                     Forms\Components\Select::make('api_id')->label(__('Provider Name'))
                     ->searchable()
-                    ->options(Category::all()->pluck('name', 'id')),
-                    Forms\Components\TextInput::make('api_service_id')->label(__('Service Id')),
-                ])
+                    ->options(Api::latest()->pluck('name', 'id'))
+                    ->hidden(fn (Closure $get) => $get('data_source') !== 'api'),
+                    Forms\Components\TextInput::make('api_service_id')->label(__('Service Id'))
+                    ->hidden(fn (Closure $get) => $get('data_source') !== 'api'),
+                ]),
+            Forms\Components\Grid::make(2)
+                ->schema([
+                    Forms\Components\Textarea::make('description')
+                    ->columnSpanFull()
+                ]),
             ]);
     }
 
@@ -91,13 +106,23 @@ class ServiceResource extends Resource
     {
         return $table
             ->columns([
-                //
+                Tables\Columns\TextColumn::make('name')->label('Package Name')->searchable()->sortable(),
+                Tables\Columns\TextColumn::make('category.name')->searchable()->sortable(),
+                Tables\Columns\TextColumn::make('min_qte')->searchable()->sortable(),
+                Tables\Columns\TextColumn::make('max_qte')->searchable()->sortable(),
+                Tables\Columns\TextColumn::make('price')->searchable()->sortable(),
+                Tables\Columns\TextColumn::make('status')->searchable()->sortable(),
+                Tables\Columns\TextColumn::make('quality')->searchable()->sortable(),
+                Tables\Columns\ToggleColumn::make('partial_process'),
+                
             ])
             ->filters([
                 //
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\ViewAction::make(),
+                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make(),
@@ -117,6 +142,7 @@ class ServiceResource extends Resource
             'index' => Pages\ListServices::route('/'),
             'create' => Pages\CreateService::route('/create'),
             'edit' => Pages\EditService::route('/{record}/edit'),
+            // 'view' => Pages\ViewService::route('/{record}'),
         ];
     }    
 }

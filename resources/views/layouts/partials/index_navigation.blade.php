@@ -27,7 +27,7 @@
 
 
                         <li>
-                            <a href="Services.html">Services</a>
+                            <a href="{{route('services')}}">Services</a>
                         </li>
                         @auth   
                         <div class="user-info">
@@ -78,7 +78,7 @@
 
 
                         <li>
-                            <a href="Services.html">Services</a>
+                            <a href="{{route('services')}}">Services</a>
                         </li>
                     </ul>
                 </div>
