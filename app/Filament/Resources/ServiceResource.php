@@ -64,8 +64,10 @@ class ServiceResource extends Resource
                 ->schema([
                     Forms\Components\Select::make('quality')->label(__('Quality'))
                     ->options(['normal' => __('Normal'),'medium'=>__('Medium'),'excellent'=>__('Excellent')])
-                    ->required()
-                    ->columnSpan('full'),
+                    ->required(),
+                    Forms\Components\Select::make('rate')->label(__('Rate( ex= 1000 )'))
+                    ->options([1 => 'Per 1',1000=>'Per 1000'])
+                    ->required(),
                 ]),
             Forms\Components\Grid::make(2)
                 ->schema([
@@ -96,9 +98,22 @@ class ServiceResource extends Resource
                 ]),
             Forms\Components\Grid::make(2)
                 ->schema([
-                    Forms\Components\Textarea::make('description')
+                    Forms\Components\TextInput::make('description')->label(__('Short Description'))
                     ->columnSpanFull()
                 ]),
+            Forms\Components\Grid::make(2)
+                ->schema([
+                    Forms\Components\TextInput::make('avg_time')->label('Average Time')->numeric(),
+                    Forms\Components\FileUpload::make('image')->label('Image')
+                    ->directory('services')
+                    ->image()
+                    ->maxSize(2500)
+                    ->imageResizeMode('cover')
+                    ->imageCropAspectRatio('16:9')
+                    ->imageResizeTargetWidth('500')
+                    ->imageResizeTargetHeight('400'),
+                ]),
+
             ]);
     }
 

@@ -28,7 +28,10 @@ class Service extends Model
         'data_source',
         'api_id',
         'api_service_id',
-        'description'
+        'description',
+        'image',
+        'avg_time',
+        'rate'
     ];
 
     /**
@@ -45,6 +48,7 @@ class Service extends Model
         'partial_process' => 'boolean',
         'api_id' => 'integer',
         'api_service_id' => 'integer',
+        'rate' => 'integer',
     ];
 
     public function category(): BelongsTo
@@ -55,5 +59,9 @@ class Service extends Model
     public function api(): BelongsTo
     {
         return $this->belongsTo(Api::class);
+    }
+    public function getImageAttribute($value)
+    {
+        return $value ? url('storage/'.$value) : null;
     }
 }

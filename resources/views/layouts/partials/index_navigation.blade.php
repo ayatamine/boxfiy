@@ -12,8 +12,6 @@
                         <li>
                             <a href="{{route('about')}}">About Us</a>
                         </li>
-
-
                         <li>
                             <a href="{{route('terms')}}">Terms</a>
                         </li>
@@ -24,19 +22,19 @@
                         <li>
                             <a href="api.html">API</a>
                         </li>
-
-
                         <li>
                             <a href="{{route('services')}}">Services</a>
                         </li>
                         @auth   
                         <div class="user-info">
-                            <a href="#"><img src="{{asset('boxfiyV6/images/icons/10.png')}}"></a>
-                            <img src="{{auth()->user()->thumbnail}}">
-                            <div class="info">
+                            <a href=""><img src="{{asset('boxfiyV6/images/icons/10.png')}}"></a>
+                            <a href="{{route('profile')}}">
+                                <img src="{{auth()->user()->thumbnail}}">
+                            </a>
+                            <a href="{{route('profile')}}" class="info">
                                 <h3>Good evening!</h3>
                                 <h1>{{fullName()}}</h1>
-                            </div>
+                            </a>
                         </div>
                         @else
                         <li id="login">

@@ -8,7 +8,7 @@ use App\Models\Category;
 use Livewire\WithPagination;
 use Illuminate\Support\Facades\Cache;
 
-class Services extends Component
+class Wallet extends Component
 {
     use WithPagination;
 
@@ -17,6 +17,9 @@ class Services extends Component
     public $sort = 'newest';
     public $category_id =null;
     public $categories =null;
+    public $category =null;
+    public $selected_service=[];
+    public $selected_service_link=[];
     public function updatingSearch()
     {
         $this->resetPage();
@@ -28,9 +31,15 @@ class Services extends Component
     //         return $job !=false;
     //     });
     // }
-    // public function updateingSearch(){
-
-    // }
+    public function updatedSelectedService($value){
+        dd($value);
+    }
+    public function updatedSelectedServiceLink($value){
+        dd($value);
+    }
+    protected $queryString = [
+        'category' => ['except' => '', 'as' => 'c'],
+    ];
     public function paginationView()
     {
         return 'livewire.custom-pagination2';
@@ -40,9 +49,12 @@ class Services extends Component
             return Category::latest()->get();
         });
     }
+    public function updatingCategoryId($value){
+        $this->category = Category::find($value)?->name;
+    }
     public function render()
     {
-   
+        $this->loadCategories();
         $services = Service::latest()
         ->when($this->search, function ($query) {
             $query->whereLike('name',$this->search)
@@ -55,12 +67,8 @@ class Services extends Component
         //     return $sort=='newest' ? $query->latest() : $query->oldest();
         // })
         ->paginate(6);
-
-
-            
-        
-        return view('livewire.services',[
-            'services'=>$services,
-        ]);
+        return view('livewire.wallet',
+         [ 'services'=>$services,]
+    );
     }
 }

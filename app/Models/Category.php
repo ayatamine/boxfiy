@@ -29,4 +29,8 @@ class Category extends Model
         'id' => 'integer',
         'status' => 'boolean',
     ];
+    public function getImageAttribute($value)
+    {
+        return $value ? url('storage/'.$value) : null;
+    }
 }

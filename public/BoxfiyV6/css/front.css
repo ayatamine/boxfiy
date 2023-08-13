@@ -1244,7 +1244,7 @@ transform: translateX(-50px);
     padding-left: 15px;
     transition: 0.3s;
     text-decoration: none;
-    width: 150px !important;
+    width: fit-content !important;
 }
 
 .wallet .socials .socials-content a i {

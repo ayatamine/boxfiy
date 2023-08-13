@@ -58,6 +58,9 @@ Route::middleware('auth')->group(function () {
 
     Route::get('profile', UserProfile::class)
         ->name('profile');
+    Route::get('add-funds', [App\Http\Controllers\Front\HomeController::class,'addFunds'])->name('addFunds');
+    Route::get('wallet', [App\Http\Controllers\Front\HomeController::class,'wallet'])->name('wallet');
+
 });
 Route::get('about-us', [App\Http\Controllers\Front\HomeController::class,'aboutUs'])->name('about');
 Route::get('terms-and-conditions', [App\Http\Controllers\Front\HomeController::class,'Terms'])->name('terms');

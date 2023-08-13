@@ -29,4 +29,12 @@ class HomeController extends Controller
     {
         return view('services');
     }
+    public function addFunds()
+    {
+        return view('add_funds');
+    }
+    public function wallet()
+    {
+        return view('wallet');
+    }
 }

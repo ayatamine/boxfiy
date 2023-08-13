@@ -406,12 +406,12 @@ $(document).ready(function() {
 
         $(".incrementer .minus-btn").click(function() {
             increvalueint = parseInt($(".incrementer input").val());
-            $(".incrementer input").val(increvalueint - 1 + " USD")
+            $(".incrementer input").val(increvalueint - 1 )
         })
 
         $(".incrementer .plus-btn").click(function() {
             increvalueint = parseInt($(".incrementer input").val());
-            $(".incrementer input").val(increvalueint + 1 + " USD")
+            $(".incrementer input").val(increvalueint + 1)
         })
 
     }

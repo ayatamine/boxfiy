@@ -28,28 +28,16 @@
 
     </head>
 
-    <body
-    @switch(Request::segment(1))
-        @case('register')
-        style="background-image: linear-gradient(1300deg,#dd8500,#0d0d19,#0d0d19,#0d0d19,#0d0d19,#0d0d19,#fe9900,#fe9900);"
-            @break
-        @case('profile')
-        @case('about-us')
-        @case('privacy-policy')
-        @case('login')
-        @case('services')
-        @case('wallet')
-        @case(\Str::contains(Request::segment(1),'term'))
-            style=""
-            @break
-        @default
-        style="background-image: linear-gradient(600deg,#dd8500,#0d0d19,#0d0d19,#0d0d19,#fe9900,#fe9900,#fe9900);" 
-
-    @endswitch 
-   >
+    <body style="">
    
-        @include('layouts.partials.index_navigation')
-        @yield('body')
+        @include('layouts.partials.profile_navigation')
+        @yield('content')
+    
+        @isset($slot)
+            {{ $slot }}
+        @endisset
+    
+        @livewire('notifications')
         @include('layouts.partials.scripts')
         @yield('scripts')
     </body>

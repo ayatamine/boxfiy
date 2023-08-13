@@ -10,10 +10,10 @@
                     <i class="open-mobile-nav fa-solid fa-bars"></i>
                     <ul>
                         <li>
-                            <a href="#">wallet</a>
+                            <a href="{{route('wallet')}}">wallet</a>
                         </li>
                         <li>
-                            <a href="#">add funds</a>
+                            <a href="{{route('addFunds')}}">add funds</a>
                         </li>
                         <li>
                             <a href="#">order history</a>
@@ -24,12 +24,14 @@
                     </ul>
 
                     <div class="user-info">
-                        <a href="#"><img src="{{asset('boxfiyV6/images/icons/10.png')}}"></a>
-                        <img src="{{auth()->user()->thumbnail}}">
-                        <div class="info">
+                        <a href=""><img src="{{asset('boxfiyV6/images/icons/10.png')}}"></a>
+                        <a href="{{route('profile')}}">
+                            <img src="{{auth()->user()->thumbnail}}">
+                        </a>
+                        <a href="{{route('profile')}}" class="info">
                             <h3>Good evening!</h3>
                             <h1>{{fullName()}}</h1>
-                        </div>
+                        </a>
                     </div>
                 </div>
 
@@ -56,11 +58,13 @@
                         @else
                         <div class="user-info">
                             <a href="#"><img src="{{asset('boxfiyV6/images/icons/10.png')}}"></a>
+                           <a href="{{route('profile')}}">
                             <img src="{{auth()->user()->thumbnail}}">
-                            <div class="info">
+                           </a> 
+                            <a href="{{route('profile')}}" class="info">
                                 <h3>Good evening!</h3>
                                 <h1>{{fullName()}}</h1>
-                            </div>
+                            </a>
                         </div>
                         @endguest
 

@@ -79,6 +79,6 @@ class UserProfile extends Component
     }
     public function render()
     {
-        return view('livewire.user-profile')->extends('layouts.app');
+        return view('livewire.user-profile')->extends('layouts.profile');
     }
 }
