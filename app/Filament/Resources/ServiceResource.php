@@ -48,14 +48,16 @@ class ServiceResource extends Resource
             Forms\Components\Grid::make(2)
                 ->schema([
                     Forms\Components\TextInput::make('min_qte')->label('Min Quantity')
-                    ->numeric(),
+                    ->numeric()
+                    ->minValue(1),
                     Forms\Components\TextInput::make('max_qte')->label('Max Quantity')
-                    ->numeric(),
+                    ->numeric()
+                    ->minValue(1),
                     // ...
                 ]),
             Forms\Components\Grid::make(2)
                 ->schema([
-                    Forms\Components\TextInput::make('price')->numeric()->required(),
+                    Forms\Components\TextInput::make('price')->numeric()->minValue(1)->required(),
                     Forms\Components\Select::make('status')
                     ->options(['active' => __('Active'),'unactive'=>__('Inactive')])
                     ->required(),
@@ -103,7 +105,7 @@ class ServiceResource extends Resource
                 ]),
             Forms\Components\Grid::make(2)
                 ->schema([
-                    Forms\Components\TextInput::make('avg_time')->label('Average Time')->numeric(),
+                    Forms\Components\TextInput::make('avg_time')->label('Average Time(ex = "12 min"'),
                     Forms\Components\FileUpload::make('image')->label('Image')
                     ->directory('services')
                     ->image()

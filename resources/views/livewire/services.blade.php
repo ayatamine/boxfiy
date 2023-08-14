@@ -72,7 +72,7 @@
                     <h3>Avg. Time : {{$service->avg_time? $service->avg_time.' Days' : 'Not Defined'}} </h3>
                     
                 </div>
-                <a href="#" class="!z-37">Buy Now</a>
+                <a href="{{route('wallet')}}" class="!z-37">Buy Now</a>
             </div>
         </div>
     </div>
