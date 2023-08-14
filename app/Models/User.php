@@ -4,18 +4,26 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Support\Str;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
+use Filament\Models\Contracts\FilamentUser;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class User extends Authenticatable implements MustVerifyEmail
+class User extends Authenticatable implements MustVerifyEmail,FilamentUser
 {
     use HasApiTokens, HasFactory, Notifiable;
-
+    public function canAccessFilament(): bool
+    {
+        if (!app()->environment('local')) {
+            return str_ends_with($this->email, '@boxfiy.com');
+        }
+        return true;
+        //&& $this->hasVerifiedEmail();
+    }
     /**
      * The attributes that are mass assignable.
      *

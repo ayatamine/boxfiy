@@ -11,13 +11,14 @@
         @endif
 
         <!-- Favicon -->
-		<link rel="shortcut icon" href="{{ url(asset('favicon.ico')) }}">
+		<link rel="shortcut icon" href="{{asset('BoxfiyV6/images/logo/5464356.png')}}">
+		{{-- <link rel="shortcut icon" href="{{ url(asset('favicon.ico')) }}"> --}}
 
         <!-- Fonts -->
         {{-- <link rel="stylesheet" href="https://rsms.me/inter/inter.css"> --}}
         @include('layouts.partials.styles')
         @yield('styles')
-        @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+        @vite(['resources/css/app.css', 'resources/js/app.js'])
         @livewireStyles
         @livewireScripts
 
