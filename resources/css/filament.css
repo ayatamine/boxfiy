@@ -1,6 +1,4 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import '../../vendor/filament/filament/resources/css/app.css';
 .filament-notifications-notification {
     padding: 2rem !important;
     min-width: 39rem !important;
@@ -14,6 +12,6 @@
     width: 2.5rem !important;
 }
 .filament-notifications-close-button {
-    height: 2rem;
+    height: 2rem; 
     width:  2rem ;
 }

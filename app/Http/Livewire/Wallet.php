@@ -7,6 +7,7 @@ use Livewire\Component;
 use App\Models\Category;
 use Livewire\WithPagination;
 use Illuminate\Support\Facades\Cache;
+use Filament\Notifications\Notification;
 
 class Wallet extends Component
 {
@@ -18,12 +19,9 @@ class Wallet extends Component
     public $category_id =null;
     public $categories =null;
     public $category =null;
-    public $selected_service=[];
+    public $selected_service_quantity=[];
     public $selected_service_link=[];
-    public function updatingSearch()
-    {
-        $this->resetPage();
-    }
+
     // public function updatejobscategories()
     // {
     //     if(!is_array($this->jobs_categories)) return;
@@ -31,15 +29,24 @@ class Wallet extends Component
     //         return $job !=false;
     //     });
     // }
-    public function updatedSelectedService($value){
-        dd($value);
-    }
-    public function updatedSelectedServiceLink($value){
-        dd($value);
-    }
     protected $queryString = [
         'category' => ['except' => '', 'as' => 'c'],
     ];
+    // public function updatedSelectedServiceQuantity($value){
+    //     dd($value);
+    // }
+    // public function updatedSelectedServiceLink($value){
+    //     dd($value);
+    // }
+    public function submitOrder(){
+        if(!count($this->selected_service_quantity))     
+        {
+              $this->dispatchBrowserEvent('no-form-data');
+              return;
+        }  
+        $this->dispatchBrowserEvent('order-submit');
+    }
+ 
     public function paginationView()
     {
         return 'livewire.custom-pagination2';

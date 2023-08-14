@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 use Illuminate\Support\Arr;
+use Filament\Facades\Filament;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Support\ServiceProvider;
 
@@ -40,6 +41,11 @@ class AppServiceProvider extends ServiceProvider
             });
         
             return $this;
+        });
+        Filament::serving(function () {
+            // Using Vite
+            Filament::registerViteTheme('resources/css/filament.css');
+
         });
     }
 }
