@@ -60,12 +60,14 @@ Route::middleware('auth')->group(function () {
         ->name('profile');
     Route::get('add-funds', [App\Http\Controllers\Front\HomeController::class,'addFunds'])->name('addFunds');
     Route::get('wallet', [App\Http\Controllers\Front\HomeController::class,'wallet'])->name('wallet');
-
+    Route::resource('tickets', App\Http\Controllers\Front\TicketController::class);
+    Route::post('tickets/{id}/reply', [App\Http\Controllers\Front\TicketController::class,'ticketReply'])->name('ticket.reply');
 });
 Route::get('about-us', [App\Http\Controllers\Front\HomeController::class,'aboutUs'])->name('about');
 Route::get('terms-and-conditions', [App\Http\Controllers\Front\HomeController::class,'Terms'])->name('terms');
 Route::get('privacy-policy', [App\Http\Controllers\Front\HomeController::class,'privacy'])->name('privacy');
 Route::get('services', [App\Http\Controllers\Front\HomeController::class,'services'])->name('services');
+Route::get('spaceremit/notify',[App\Http\Controllers\Front\PaymentController::class,'spaceremitNotify'])->name('spaceremit.notify');
 
 // Route::resource('service', App\Http\Controllers\Front\ServiceController::class)->only('index');
 

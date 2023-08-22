@@ -34,7 +34,9 @@ class User extends Authenticatable implements MustVerifyEmail,FilamentUser
         'email',
         'password',
         'username',
-        'thumbnail'
+        'thumbnail',
+        'wallet_balance',
+        'is_admin'
     ];
     protected static function booted()
     {

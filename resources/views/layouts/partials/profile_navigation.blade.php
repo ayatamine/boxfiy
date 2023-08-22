@@ -19,7 +19,7 @@
                             <a href="#">order history</a>
                         </li>
                         <li>
-                            <a href="#">support</a>
+                            <a href="{{route('tickets.index')}}">support</a>
                         </li>
                     </ul>
 

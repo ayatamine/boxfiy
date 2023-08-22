@@ -16,7 +16,7 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 class ApiResource extends Resource
 {
     protected static ?string $model = Api::class;
-
+    protected static ?string $recordTitleAttribute = 'name';
     protected static ?string $navigationIcon = 'icons.code';
     protected static ?string $navigationLabel = 'Api Providers List';
     public static function form(Form $form): Form

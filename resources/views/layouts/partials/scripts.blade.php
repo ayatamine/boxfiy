@@ -18,5 +18,5 @@
         jQuery('.loading').fadeOut(1000);
     });
 </script>
-<script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12 "></script>
+<script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
 <script src="{{asset('BoxfiyV6/js/front.js')}}"></script>

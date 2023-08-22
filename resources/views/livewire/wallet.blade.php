@@ -1,12 +1,17 @@
 <section class="wallet">
     <div class="container">
+        @if (session()->has('success'))
+            <div class="bg-green-500 text-white text-2xl p-5 py-6 rounded-lg mb-3">
+                {{ session('success') }}
+            </div>
+        @endif
         <div class="row">
             <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12">
                 <div class="balance-content">
                     <div class="balance">
                         <i class="fa-solid fa-dollar-sign"></i>
                         <div class="info">
-                            <h1>100.45 <span class="currency">USD</span></h1>
+                            <h1>{{auth()->user()->wallet_balance}} <span class="currency">USD</span></h1>
                             <h2>Balance</h2>
                         </div>
                     </div>
@@ -14,7 +19,7 @@
                     <div class="balance">
                         <i class="fa-solid fa-dollar-sign"></i>
                         <div class="info">
-                            <h1>100.45 <span class="currency">USD</span></h1>
+                            <h1>{{auth()->user()->wallet_balance}} <span class="currency">USD</span></h1>
                             <h2>Balance</h2>
                         </div>
                     </div>

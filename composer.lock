@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8388e9cdc341ed89d607adc47612d617",
+    "content-hash": "2ad7b33d8af4ea7606cb461ca3e40a3f",
     "packages": [
         {
             "name": "akaunting/laravel-money",
@@ -454,6 +454,52 @@
                 "source": "https://github.com/dflydev/dflydev-dot-access-data/tree/v3.0.2"
             },
             "time": "2022-10-27T11:44:00+00:00"
+        },
+        {
+            "name": "dipesh79/laravel-payeer-checkout",
+            "version": "v1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Dipesh79/LaravelPayeerCheckout.git",
+                "reference": "e0fa0a61b7510559ac5f13348acc0b1eb708e8d3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Dipesh79/LaravelPayeerCheckout/zipball/e0fa0a61b7510559ac5f13348acc0b1eb708e8d3",
+                "reference": "e0fa0a61b7510559ac5f13348acc0b1eb708e8d3",
+                "shasum": ""
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Dipesh79\\LaravelPayeerCheckout\\PayeerServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Dipesh79\\LaravelPayeerCheckout\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Dipesh79",
+                    "email": "dipeshkhanal79@gmail.com",
+                    "homepage": "https://www.khanaldipesh.com.np",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Laravel Payeer Checkout - A simple laravel package to implement payeer checkout.",
+            "support": {
+                "issues": "https://github.com/Dipesh79/LaravelPayeerCheckout/issues",
+                "source": "https://github.com/Dipesh79/LaravelPayeerCheckout/tree/v1"
+            },
+            "time": "2022-12-10T19:38:18+00:00"
         },
         {
             "name": "doctrine/inflector",

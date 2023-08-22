@@ -16,7 +16,7 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 class AboutSectionResource extends Resource
 {
     protected static ?string $model = AboutSection::class;
-
+    protected static ?string $recordTitleAttribute = 'title';
     protected static ?string $navigationIcon = 'icons.about';
 
     public static function form(Form $form): Form

@@ -12,7 +12,7 @@
 
                         <div class="input">
                             <label><img src="{{asset('boxfiyV6/images/icons/18.png')}}"></label>
-                            <input wire:model.lazy="email" placeholder="Email" type="email" name="" class="">
+                            <input wire:model.defer="email" placeholder="Email" type="email" name="" class="">
                             @error('email')
                             <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
                             @enderror
@@ -20,7 +20,7 @@
 
                         <div class="input">
                             <label><img src="{{asset('boxfiyV6/images/icons/18.png')}}"></label>
-                            <input wire:model.lazy="password" placeholder="Password" type="password" name="" class="">
+                            <input wire:model.defer="password" placeholder="Password" type="password" name="" class="">
                             @error('password')
                             <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
                             @enderror

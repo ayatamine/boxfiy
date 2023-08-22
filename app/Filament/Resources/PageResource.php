@@ -18,7 +18,7 @@ use App\Filament\Resources\PageResource\RelationManagers;
 class PageResource extends Resource
 {
     protected static ?string $model = Page::class;
-
+    protected static ?string $recordTitleAttribute = 'name';
     protected static ?string $navigationIcon = 'icons.pages';
 
     public static function form(Form $form): Form

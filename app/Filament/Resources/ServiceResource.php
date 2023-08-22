@@ -19,7 +19,7 @@ use App\Filament\Resources\ServiceResource\RelationManagers;
 class ServiceResource extends Resource
 {
     protected static ?string $model = Service::class;
-
+    protected static ?string $recordTitleAttribute = 'name';
     protected static ?string $navigationIcon = 'icons.services';
 
     public static function form(Form $form): Form

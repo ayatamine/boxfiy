@@ -1,0 +1,232 @@
+@import 'https://fonts.googleapis.com/css?family=Noto+Sans';
+body {
+  padding: 0;
+  margin: 0;
+ 
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  border-radius: 10px;
+  background-color: orange;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background-color: orange;
+}
+
+.chat-thread {
+  margin: 24px auto 0 auto;
+  padding: 0 20px 0 0;
+  list-style: none;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+.chat-thread li {
+  position: relative;
+  clear: both;
+  display: inline-block;
+  padding: 16px 40px 16px 20px;
+  margin: 0 0 20px 0;
+  font: 16px/20px "Noto Sans", sans-serif;
+  border-radius: 10px;
+  background-color: rgba(25, 147, 147, 0.2);
+}
+
+/* Chat - Avatar */
+.chat-thread li:before {
+  position: absolute;
+  top: 0;
+  width: 50px;
+  height: 50px;
+  border-radius: 50px;
+  content: "";
+}
+
+/* Chat - Speech Bubble Arrow */
+.chat-thread li:after {
+  position: absolute;
+  top: 15px;
+  content: "";
+  width: 0;
+  height: 0;
+  border-top: 15px solid rgba(25, 147, 147, 0.2);
+}
+
+.chat-thread .right {
+  animation: show-chat-odd 0.15s 1 ease-in;
+  -moz-animation: show-chat-odd 0.15s 1 ease-in;
+  -webkit-animation: show-chat-odd 0.15s 1 ease-in;
+  float: right;
+  margin-right: 80px;
+  color: orange;
+}
+
+.chat-thread .right:before {
+  right: -80px;
+  background-image: url("/images/user-icon.png");
+}
+
+.chat-thread .right:after {
+  border-right: 15px solid transparent;
+  right: -15px;
+}
+
+.chat-thread .left {
+  animation: show-chat-even 0.15s 1 ease-in;
+  -moz-animation: show-chat-even 0.15s 1 ease-in;
+  -webkit-animation: show-chat-even 0.15s 1 ease-in;
+  float: left;
+  margin-left: 80px;
+  color: white;
+}
+
+.chat-thread .left:before {
+  left: -80px;
+  background-image: url("/images/logo/5464356.png");
+  background-size: contain;
+  background-color: aliceblue;
+  padding: 20px;
+  background-position: center;
+}
+
+.chat-thread .left:after {
+  border-left: 15px solid transparent;
+  left: -15px;
+}
+
+.chat-window {
+  position: absolute;
+  display: flex;
+  
+}
+
+.Cont{
+  position: relative;
+}
+
+.chat-window >i{
+  font-size: 20px;
+  background-color: orange;
+  border-radius: 50%;
+  padding: 15px;
+  margin-left: 10px;
+  cursor: pointer;
+}
+
+.chat-window-message {
+  width: 100%;
+  height: 48px;
+  font: 22px/38px "Noto Sans", sans-serif;
+  background: none;
+  color: white;
+  border: 2px solid orange;
+  border-radius: 10px;
+  outline: none;
+}
+
+h2{
+  color: whitesmoke;
+  text-align: center;
+}
+#text{
+  font-size: 25px;
+}
+span{
+  color: orange;
+}
+
+.information{
+  border: 2px #2e384c;
+  border-style: dashed;
+  width: fit-content;
+  position: relative;
+  left: 50%;
+  top:0;
+  transform: translate(-50%,0);
+  padding: 20px;
+}
+
+/* Small screens */
+@media all and (max-width: 767px) {
+  .chat-thread {
+    width: 90%;
+    height: 360px;
+  }
+  #text{
+    font-size: 17px;
+  }
+  .information{
+    padding: 8px;
+  }
+
+  .chat-window {
+    left: 5%;
+    width: 90%;
+  }
+}
+/* Medium and large screens */
+@media all and (min-width: 768px) {
+  .chat-thread {
+    width: 50%;
+    height: 320px;
+  }
+
+  .chat-window {
+    left: 25%;
+    width: 50%;
+  }
+}
+@keyframes show-chat-even {
+  0% {
+    margin-left: -480px;
+  }
+  100% {
+    margin-left: 0;
+  }
+}
+@-moz-keyframes show-chat-even {
+  0% {
+    margin-left: -480px;
+  }
+  100% {
+    margin-left: 0;
+  }
+}
+@-webkit-keyframes show-chat-even {
+  0% {
+    margin-left: -480px;
+  }
+  100% {
+    margin-left: 0;
+  }
+}
+@keyframes show-chat-odd {
+  0% {
+    margin-right: -480px;
+  }
+  100% {
+    margin-right: 0;
+  }
+}
+@-moz-keyframes show-chat-odd {
+  0% {
+    margin-right: -480px;
+  }
+  100% {
+    margin-right: 0;
+  }
+}
+@-webkit-keyframes show-chat-odd {
+  0% {
+    margin-right: -480px;
+  }
+  100% {
+    margin-right: 0;
+  }
+}

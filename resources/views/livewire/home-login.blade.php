@@ -1,4 +1,4 @@
-<form action="" method=""  wire:submit.prevent="authenticate">
+<form wire:ignore action="" method=""  wire:submit.prevent="authenticate">
     <div  class="input email-home">
         <label><img src="{{asset('BoxfiyV6/images/icons/17.png')}}"></label>
         <input wire:model.lazy="email"  placeholder="Email" type="email" name="" class="">
