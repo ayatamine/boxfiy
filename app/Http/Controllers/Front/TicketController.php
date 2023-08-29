@@ -52,6 +52,7 @@ class TicketController extends Controller
      */
     public function show(string $id)
     {
+        if(request()->has('notification_id')) markSingleNotificationsAsRead(request()->get('notification_id'),$with_notify=false);
         $ticket = Ticket::with('category')->with('replies')->whereUserId(auth()->id())->findOrFail($id);
         return view('ticket.show',compact('ticket'));
     }

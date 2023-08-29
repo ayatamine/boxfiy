@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\Ticket;
 use Filament\Pages\Actions;
 use App\Models\TicketReply as Reply;
+use Filament\Notifications\Notification;
 use Filament\Resources\Pages\ViewRecord;
 use App\Filament\Resources\TicketResource;
 use App\Notifications\User\NewTicketReplyNotification;
@@ -18,7 +19,9 @@ class TicketReply extends ViewRecord
     public $message;
     protected function getViewData(): array
     {
-       $ticket = Ticket::with('replies')->find(1);
+       if(request()->has('notification_id')) markSingleNotificationsAsRead(request()->get('notification_id'),$with_notify=false);
+       $ticket = Ticket::with('replies')->find($this->record->id);
+
        return [
         'ticket'=>$ticket
        ];
@@ -47,5 +50,25 @@ class TicketReply extends ViewRecord
         }
       
         $this->message =null;
+    }
+    public function closeTicket()
+    {
+        Ticket::findOrFail($this->record->id)->update(['status'=>'closed']);
+        Notification::make()
+            ->title('The Ticket closed successfully')
+            ->icon('heroicon-o-check-circle')
+            ->iconColor('success')
+            ->send();
+         return redirect()->route('filament.resources.tickets.view',['record'=>$this->record->id]);
+    }
+    public function openTicket()
+    {
+        Ticket::findOrFail($this->record->id)->update(['status'=>'open']);
+        Notification::make()
+            ->title('The Ticket Opened successfully')
+            ->icon('heroicon-o-check-circle')
+            ->iconColor('success')
+            ->send();
+         return redirect()->route('filament.resources.tickets.view',['record'=>$this->record->id]);
     }
 }

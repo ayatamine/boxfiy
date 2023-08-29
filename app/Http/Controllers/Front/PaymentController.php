@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Front;
 use App\Http\Controllers\Controller;
 use App\Models\BallanceHistory;
 use App\Models\PaymentGateway;
+use App\Notifications\User\BalanceCreditedNotification;
 use Illuminate\Http\Request;
 
 class PaymentController extends Controller
@@ -35,8 +36,8 @@ class PaymentController extends Controller
 
         if ($server_output === "VALID_PAYMENT") {
             // Payment is valid, perform further actions
-            auth()->user()->update(['ballance' =>$requiredParameters['total_amount']]);
-            BallanceHistory::create(
+            auth()->user()->increment('wallet_balance' ,$requiredParameters['total_amount']);
+            $BallanceHistory = BallanceHistory::create(
                 [
                     'user_id'=>auth()->id(),
                     'transaction_type' =>'credit_ballance',
@@ -44,6 +45,8 @@ class PaymentController extends Controller
                     'payment_gateway_id'=> PaymentGateway::where('unique_keyword','spaceremit')->first()?->id ?? null,
                 ]
                 );
+
+            auth()->user()?->notify(new BalanceCreditedNotification(auth()->user()->name,$BallanceHistory));
             session()->flash('success','Your ballance has been credited successfully');
             return redirect()->route('wallet');
         } else {

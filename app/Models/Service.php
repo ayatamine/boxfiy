@@ -2,9 +2,11 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Request;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Service extends Model
 {
@@ -62,6 +64,13 @@ class Service extends Model
     }
     public function getImageAttribute($value)
     {
-        return $value ? url('storage/'.$value) : null;
+       
+                if($value)
+                {
+                    if(Request::segment(1) =='admin') return $value;
+                    if(app()->isProduction()) return  url('storage/public/'.$value);
+                    return url('storage/'.$value);
+                }else return  null;
+            
     }
 }

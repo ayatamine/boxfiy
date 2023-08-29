@@ -41,7 +41,7 @@
 @if($ticket->status !=='closed')
 <form class="chat-window" method="POST" action="{{route('ticket.reply',['id'=>$ticket->id])}}">
     @csrf
-	<input class="chat-window-message px-4" name="message" type="text" autocomplete="off" autofocus />
+	<input class="chat-window-message px-4" name="message" type="text" required autocomplete="off" autofocus />
     <button type="submit" class="btn-submit">
         <i style="display: inline;" class="fa-solid fa-paper-plane"></i>  
     </button>  

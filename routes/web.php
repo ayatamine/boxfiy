@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\EmailVerificationController;
 use App\Http\Controllers\Auth\LogoutController;
+use App\Http\Controllers\Front\UserController;
 use App\Http\Livewire\Auth\Login;
 use App\Http\Livewire\Auth\Passwords\Confirm;
 use App\Http\Livewire\Auth\Passwords\Email;
@@ -58,10 +59,18 @@ Route::middleware('auth')->group(function () {
 
     Route::get('profile', UserProfile::class)
         ->name('profile');
-    Route::get('add-funds', [App\Http\Controllers\Front\HomeController::class,'addFunds'])->name('addFunds');
-    Route::get('wallet', [App\Http\Controllers\Front\HomeController::class,'wallet'])->name('wallet');
+    
+    // Route::get('/admin/notifications/mark-as-read', 'markNotificationsAsRead')->name('notification.mark-as-readAll');
+    // Route::get('//notifications/{id}/mark-as-read', 'markSingleNotificationsAsRead')->name('notification.mark-as-read');
+
     Route::resource('tickets', App\Http\Controllers\Front\TicketController::class);
     Route::post('tickets/{id}/reply', [App\Http\Controllers\Front\TicketController::class,'ticketReply'])->name('ticket.reply');
+    Route::controller(UserController::class)->group(function(){
+        Route::get('add-funds', 'addFunds')->name('addFunds');
+        Route::get('wallet', 'wallet')->name('wallet');
+        Route::get('notifications', 'notifications')->name('notifications');
+        Route::get('notifications/mark-as-read', 'markNotificationsAsRead')->name('notification.mark-as-readAll');
+    });
 });
 Route::get('about-us', [App\Http\Controllers\Front\HomeController::class,'aboutUs'])->name('about');
 Route::get('terms-and-conditions', [App\Http\Controllers\Front\HomeController::class,'Terms'])->name('terms');

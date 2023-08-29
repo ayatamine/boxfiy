@@ -11,11 +11,12 @@ use Filament\Models\Contracts\FilamentUser;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable implements MustVerifyEmail,FilamentUser
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable,SoftDeletes;
     public function canAccessFilament(): bool
     {
         if (!app()->environment('local')) {
@@ -36,7 +37,8 @@ class User extends Authenticatable implements MustVerifyEmail,FilamentUser
         'username',
         'thumbnail',
         'wallet_balance',
-        'is_admin'
+        'is_admin',
+        'account_status'
     ];
     protected static function booted()
     {
@@ -64,6 +66,7 @@ class User extends Authenticatable implements MustVerifyEmail,FilamentUser
     protected $casts = [
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
+        'account_status' => 'boolean',
     ];
     public function thumbnail(): Attribute
     {

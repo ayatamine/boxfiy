@@ -31,7 +31,7 @@
         <div class="flex items-end justify-end space-x-2">
           <div>
             <div class="bg-primary-500 text-white p-3 rounded-lg  text-right">
-              <p class="text-sm font-semibold">{{$reply->user->name}}</p>
+              <a class="underline underline-offset-2 text-sm font-semibold" href="{{route('filament.resources.users.edit',$reply->user->id)}}" target="_blank">{{$reply->user->name}}</a>
               <p class="text-lg">{{$reply->message}}</p>
               <p class="text-xs text-gray-300">{{$reply->created_at->diffForHumans()}}</p>
             </div>
@@ -46,15 +46,24 @@
       </div>
   
       <!-- Chat Input with Send Button -->
+      @if($record->status != 'closed')
      <form action="" wire:submit.prevent='addReply' class="pb-3">
       <div class="flex items-center p-4 border-t border-gray-300">
         <textarea wire:model.defer="message"  rows="3" style="width: 100%" class="rounded-lg bg-gray-200 text-gray-800 flex-grow border  border-gray-300 rounded-l-md py-2 px-3 focus:outline-none" placeholder="Type your message..."></textarea>
       </div>
       <div class="flex justify-end items-center gap-3 pb-3">
-        <button style="background-color: red" class=" font-semibold text-white py-2 px-4 rounded-r-md hover:bg-blue-600 focus:outline-none rounded-lg">Close Ticket</button>
+     
+        <button wire:click='closeTicket' style="background-color: red" class=" font-semibold text-white py-2 px-4 rounded-r-md hover:bg-blue-600 focus:outline-none rounded-lg">Close Ticket</button>
         <button type="submit" class="bg-primary-500 text-white py-2 px-4 rounded-r-md hover:bg-blue-600 focus:outline-none rounded-lg">Send Reply</button>
+
+       
       </div>
      </form>
+     @else 
+     <div class="flex justify-end items-center gap-3 pb-3 px-4">
+        <button wire:click='openTicket' style="background-color: red" class=" font-semibold text-white py-2 px-4 rounded-r-md hover:bg-blue-600 focus:outline-none rounded-lg">Open This Ticket</button>
+     </div>
+     @endif
     </div>
   </div>
   

@@ -28,7 +28,7 @@
       <tr class="bg-[#21242cff] text-white rounded-xl p-4 py-8 text-4xl border-0 mb-3">
         <td class=" font-bold p-4 pl-8  text-left">{{$ticket->order_id ?? '/'}}</td>
         <td class=" font-bold p-4 pl-8 ">
-          <a href="{{route('tickets.show',['index'])}}">{{$ticket->title}}</a>
+          <a href="{{route('tickets.show',[$ticket->id])}}">{{$ticket->title}}</a>
         </td>
         <td class=" font-bold p-4 pl-8 ">{{date('d-M-Y',strtotime($ticket->created_at))}}</td>
         <td class=" font-bold p-4 pl-8 ">

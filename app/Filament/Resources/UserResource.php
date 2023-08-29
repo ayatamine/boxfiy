@@ -28,22 +28,26 @@ class UserResource extends Resource
             ->schema([
                 Forms\Components\TextInput::make('name')
                     ->required()
-                    ->maxLength(255),
+                    ->maxLength(255)->disabled(),
                 Forms\Components\TextInput::make('email')
                     ->email()
                     ->required()
-                    ->maxLength(255),
-                Forms\Components\DateTimePicker::make('email_verified_at'),
-                Forms\Components\TextInput::make('password')
-                    ->password()
-                    ->required()
-                    ->maxLength(255),
+                    ->maxLength(255)
+                    ->disabled(),
+                // Forms\Components\DateTimePicker::make('email_verified_at'),
+                // Forms\Components\TextInput::make('password')
+                //     ->password()
+                //     ->required()
+                //     ->maxLength(255),
+                Forms\Components\Grid::make(2)
+                ->schema([
                 Forms\Components\TextInput::make('username')
                     ->unique(table: User::class,ignoreRecord:true)
                     ->required()
-                    ->maxLength(255),
-                // Forms\Components\TextInput::make('thumbnail')
-                //     ->maxLength(255),
+                    ->maxLength(255)
+                    ->disabled(),
+                ]),
+                Forms\Components\Toggle::make('account_status')
             ]);
     }
     public static function table(Table $table): Table
@@ -53,21 +57,36 @@ class UserResource extends Resource
                 Tables\Columns\TextColumn::make('name')->label('Full Name')->searchable()->sortable(),
                 Tables\Columns\TextColumn::make('username')->searchable()->sortable(),
                 Tables\Columns\TextColumn::make('email')->searchable()->sortable(),
-                Tables\Columns\ImageColumn::make('thumbnail'),
-                Tables\Columns\IconColumn::make('verified_email')->label('Verified Email'),
+                // Tables\Columns\ImageColumn::make('thumbnail'),
+                // Tables\Columns\IconColumn::make('verified_email')->label('Verified Email'),
                 Tables\Columns\TextColumn::make('created_at')->label('Joined At')
                     ->date(),
+                Tables\Columns\ToggleColumn::make('account_status')->label('Account Status')
+                    // ->action(
+                    //     Tables\Actions\Action::make('select')
+                    //         ->requiresConfirmation()
+                    //         ->action(function (User $record): void {
+                    //             $this->dispatchBrowserEvent('select-post', [
+                    //                 'post' => $record->getKey(),
+                    //             ]);
+                    //         }),
+                    // )
+                    
             ])
             ->filters([
-                //
+                Tables\Filters\TrashedFilter::make(),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\ViewAction::make(),
                 Tables\Actions\DeleteAction::make(),
+                Tables\Actions\ForceDeleteAction::make(),
+                Tables\Actions\RestoreAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make(),
+                Tables\Actions\ForceDeleteBulkAction::make(),
+                Tables\Actions\RestoreBulkAction::make(),
             ]);
     }
     
@@ -87,4 +106,11 @@ class UserResource extends Resource
             'view' => Pages\ViewUser::route('/{record}'),
         ];
     }    
+    public static function getEloquentQuery(): Builder
+    {
+        return parent::getEloquentQuery()
+            ->withoutGlobalScopes([
+                SoftDeletingScope::class,
+            ]);
+    }
 }

@@ -2,16 +2,17 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\PaymentGatewayResource\Pages;
-use App\Filament\Resources\PaymentGatewayResource\RelationManagers;
-use App\Models\PaymentGateway;
+use Closure;
 use Filament\Forms;
-use Filament\Resources\Form;
-use Filament\Resources\Resource;
-use Filament\Resources\Table;
 use Filament\Tables;
+use Filament\Resources\Form;
+use Filament\Resources\Table;
+use App\Models\PaymentGateway;
+use Filament\Resources\Resource;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use App\Filament\Resources\PaymentGatewayResource\Pages;
+use App\Filament\Resources\PaymentGatewayResource\RelationManagers;
 
 class PaymentGatewayResource extends Resource
 {
@@ -46,8 +47,31 @@ class PaymentGatewayResource extends Resource
                 ->maxSize(2500),
                 Forms\Components\Textarea::make('short_description')
                     ->maxLength(16215),
-                Forms\Components\Toggle::make('status')
-                    ->required(),
+                Forms\Components\Grid::make(2)
+                ->schema([
+                    Forms\Components\TextInput::make('min_amount')
+                    ->numeric(),
+                    Forms\Components\TextInput::make('max_amount')
+                    ->numeric()
+                ]),
+                //  Forms\Components\Select::make('is_attached_with_spaceremit')
+                //     ->label('Attached With SpaceRemit')
+                //     ->options([0 => 'Attached', 1 => 'Not Attached'])
+                //     ->reactive(),
+                 Forms\Components\Checkbox::make('is_attached_with_spaceremit')
+                    ->label('Attached With SpaceRemit')
+                    ->reactive(),
+                 Forms\Components\Grid::make(2)
+                ->schema([
+                    Forms\Components\RichEditor::make('how_to_pay_description')
+                    ->label('How To Pay Description(it will be in different page)')
+                    ->columnSpanFull()
+                    ->hidden(
+                        fn (Closure $get): bool => $get('is_attached_with_spaceremit') == true
+                    ),
+                ])
+                // Forms\Components\Toggle::make('status')
+                //     ->required(),
             ]);
     }
 
@@ -60,8 +84,8 @@ class PaymentGatewayResource extends Resource
                 Tables\Columns\ImageColumn::make('logo'),
                 Tables\Columns\IconColumn::make('status')
                     ->boolean(),
-                Tables\Columns\TextColumn::make('created_at')
-                    ->date(),
+                // Tables\Columns\TextColumn::make('created_at')
+                //     ->date(),
             ])
             ->filters([
                 //

@@ -12,20 +12,66 @@ use Dipesh79\LaravelPayeerCheckout\LaravelPayeerCheckout;
 class AddFunds extends Component
 {
     public $amount=10;
+    public $final_amount;
     public $payment_method=null;
     public ?string $spaceremit_email='ahmed.7ahmedali@gmail.com';
     public ?string $spaceremit_return_page;
     public ?string $spaceremit_notify_page;
     public ?string $custom="";
+    public ?string $spaceremit_form_action=null;
+    public $min_amount=1;
+    public $max_amount;
+
     public  $isSpaceRemitPayment=false;
+    public $payment_gateways;
+    
     public function mount()
     {
         $this->spaceremit_return_page =route('addFunds');
         $this->spaceremit_notify_page=route('spaceremit.notify');
+        $this->payment_gateways = PaymentGateway::select('name','unique_keyword',
+        'logo','is_attached_with_spaceremit','how_to_pay_description','min_amount',
+        'max_amount',)->latest()->get();
+    }
+    public function incrementAmount()
+    {
+        if($this->max_amount == $this->amount) return;
+        $this->amount++;
+        $this->final_amount = $this->amount;
+    }
+    public function decrementAmount()
+    {
+        if($this->min_amount == $this->amount) return;
+        $this->amount--;
+        $this->final_amount = $this->amount;
+    }
+    public function updatedPaymentMethod($value)
+    {
+        
+            $payment_gateway =json_decode( $this->payment_method);
+            $this->min_amount = $payment_gateway->min_amount;
+            $this->max_amount = $payment_gateway->max_amount;
+          
+       
     }
     public function submitAddFund(){
-        // dd($this->payment_method.' '.$this->amount);
-        $this->initiatePayment();
+        $payment_gateway =json_decode( $this->payment_method);
+        if($payment_gateway->unique_keyword !== 'spaceremit')
+        {
+            // $payment_gateway = PaymentGateway::where('unique_keyword',$this->payment_method)->first();
+            if($payment_gateway?->is_attached_with_spaceremit)
+            {
+                $this->dispatchBrowserEvent('submit-spaceremit-form',['amount'=>$this->amount]);
+
+            }else
+            {
+               //    
+            }
+           
+        }else
+        {
+            $this->dispatchBrowserEvent('submit-spaceremit-form',['amount'=>$this->amount]);
+        }
     }
     public function initiatePayment()
     {

@@ -12,6 +12,18 @@ input::-webkit-inner-spin-button {
 input[type=number] {
   -moz-appearance: textfield;
 }
+.non_related_payment_method{
+   position: absolute;
+    top: 60px;
+    width: 100%;
+    border-top: 1px solid #4e4b4b;
+    background: #262a36;
+    border-radius: 5px;
+    padding: 1.2rem;
+    color: white;
+    z-index: 99;display: none;
+
+}
     </style>
 @endsection
 @section('content')
@@ -48,7 +60,18 @@ Swal.fire({
 })
 })
 
+window.addEventListener('submit-spaceremit-form',function(event){
+  console.log('submitting')
+  // document.getElementById('amount_to_pay').value =event.detail.amount
+  document.getElementById('spaceremit-form').submit();
+  });
 </script>
+
+
+
+
+
+
 <!-- component -->
 <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
 

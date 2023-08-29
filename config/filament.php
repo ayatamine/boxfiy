@@ -182,8 +182,8 @@ return [
     */
 
     'database_notifications' => [
-        'enabled' => true,
-        'trigger'=>'notifications.database-notifications-trigger',
+        'enabled' => false,
+        // 'trigger'=>'notifications.database-notifications-trigger',
         'polling_interval' => '30s',
     ],
 
@@ -201,15 +201,15 @@ return [
 
     'broadcasting' => [
 
-        // 'echo' => [
-        //     'broadcaster' => 'pusher',
-        //     'key' => env('VITE_PUSHER_APP_KEY'),
-        //     'cluster' => env('VITE_PUSHER_APP_CLUSTER'),
-        //     'wsHost' => env('VITE_PUSHER_HOST'),
-        //     'wsPort' => env('VITE_PUSHER_PORT'),
-        //     'wssPort' => env('VITE_PUSHER_PORT'),
-        //     'forceTLS' => true,
-        // ],
+        'echo' => [
+            'broadcaster' => 'pusher',
+            'key' => env('VITE_PUSHER_APP_KEY'),
+            'cluster' => env('VITE_PUSHER_APP_CLUSTER'),
+            'wsHost' => env('VITE_PUSHER_HOST'),
+            'wsPort' => env('VITE_PUSHER_PORT'),
+            'wssPort' => env('VITE_PUSHER_PORT'),
+            'forceTLS' => true,
+        ],
 
     ],
 

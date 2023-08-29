@@ -42,29 +42,29 @@ window.addEventListener("scroll",function(){
 
 let emailHome = document.querySelector(".email-home");
 let passHome = document.querySelector(".password-home");
-let pay1 = document.getElementById("pay1");
-let pay2 = document.getElementById("pay2");
-let pay3 = document.getElementById("pay3");
-let pay4 = document.getElementById("pay4");
-let pay5 = document.getElementById("pay5");
-let pay6 = document.getElementById("pay6");
+// let pay1 = document.getElementById("pay1");
+// let pay2 = document.getElementById("pay2");
+// let pay3 = document.getElementById("pay3");
+// let pay4 = document.getElementById("pay4");
+// let pay5 = document.getElementById("pay5");
+// let pay6 = document.getElementById("pay6");
 
 window.addEventListener("load",function(){
     if(window.innerWidth > 767)
     {
-    pay1.style = "opacity: 1;transform: translateX(0px);";
-    pay2.style = "opacity: 1;transform: translateX(0px);";
-    pay3.style = "opacity: 1;transform: translateX(0px);";
-    pay4.style = "opacity: 1;transform: translateX(0px);";
-    pay5.style = "opacity: 1;transform: translateX(0px);";
-    pay6.style = "opacity: 1;transform: translateX(0px);";
+    // pay1.style = "opacity: 1;transform: translateX(0px);";
+    // pay2.style = "opacity: 1;transform: translateX(0px);";
+    // pay3.style = "opacity: 1;transform: translateX(0px);";
+    // pay4.style = "opacity: 1;transform: translateX(0px);";
+    // pay5.style = "opacity: 1;transform: translateX(0px);";
+    // pay6.style = "opacity: 1;transform: translateX(0px);";
     }
 
     else if(window.innerWidth <= 767)
     {
-        pay1.style = "opacity: 1;transform: translateX(0px);";
-        pay2.style = "opacity: 1;transform: translateX(0px);";
-        pay3.style = "opacity: 1;transform: translateX(0px);";
+        // pay1.style = "opacity: 1;transform: translateX(0px);";
+        // pay2.style = "opacity: 1;transform: translateX(0px);";
+        // pay3.style = "opacity: 1;transform: translateX(0px);";
     }
 })
 
@@ -399,18 +399,35 @@ $(document).ready(function() {
     if ($(".add-funds").length) {
         $(".add-funds .funds-content .pay-ways ul label").click(function() {
             $(".add-funds .funds-content .pay-ways ul label").removeClass("active");
+            $('.non_related_payment_method').css("display","none");
             $(this).addClass("active");
+            $(this).find('.non_related_payment_method').css("display","initial");
         })
 
-
+        $(".add-funds .funds-content .pay-ways ul label").on( "mouseleave", function() {
+            $(this).find('.non_related_payment_method').css("display","none");
+        })
+        $(".non_related_payment_method").on( "mouseenter", function() {
+            $(this).css("display","initial");
+        })
 
         $(".incrementer .minus-btn").click(function() {
             increvalueint = parseInt($(".incrementer input").val());
+            minvalue = parseInt($(".incrementer input").attr('min'));
+            if(typeof(minvalue) == 'number' && minvalue == increvalueint)
+            {
+                alert('This is the minimum amount');
+            }
             $(".incrementer input").val(increvalueint - 1 )
         })
 
         $(".incrementer .plus-btn").click(function() {
             increvalueint = parseInt($(".incrementer input").val());
+            maxvalue = parseInt($(".incrementer input").attr('max'));
+            if(typeof(maxvalue) == 'number' && maxvalue == increvalueint)
+            {
+                alert('This is the maximum amount');
+            }
             $(".incrementer input").val(increvalueint + 1)
         })
 

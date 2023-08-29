@@ -29,7 +29,7 @@ class NewTicketReplyNotification extends Notification
      */
     public function via(object $notifiable): array
     {
-        return ['database'];
+        return ['mail','database'];
     }
 
     /**
@@ -38,9 +38,10 @@ class NewTicketReplyNotification extends Notification
     public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
-                    ->line('Thank you for using our application!');
+                    ->line('A new responses to your ticket ')
+                    ->line('Your ticket has been updated ,please visit account to reply')
+                    ->action('View Ticket', url(route('tickets.show',['id'=>$this->data['id']])))
+                    ->line('Thank, '.config('app.name'));  
     }
 
      /**
@@ -52,7 +53,7 @@ class NewTicketReplyNotification extends Notification
     {
         return 
         [
-            'title' =>'New Reply from client on Ticket #'.$this->data['ticket_id'],
+            'title' =>'A new reponse to your ticket #'.$this->data['ticket_id'],
             'created_at'=>$this->data['created_at'],
             'ticket_id'=>$this->data['ticket_id']
         ];

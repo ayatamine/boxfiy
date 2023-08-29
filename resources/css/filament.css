@@ -1,4 +1,5 @@
-/* @import '../../vendor/filament/filament/resources/css/app.css';
+@import '../../vendor/filament/filament/resources/css/app.css';
+/* 
 .filament-notifications-notification {
     padding: 2rem !important;
     min-width: 39rem !important;
@@ -14,4 +15,4 @@
 .filament-notifications-close-button {
     height: 2rem; 
     width:  2rem ;
-} */
+}  */

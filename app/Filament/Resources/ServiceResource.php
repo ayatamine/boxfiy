@@ -60,12 +60,14 @@ class ServiceResource extends Resource
                     Forms\Components\TextInput::make('price')->numeric()->minValue(1)->required(),
                     Forms\Components\Select::make('status')
                     ->options(['active' => __('Active'),'unactive'=>__('Inactive')])
+                    ->default('active')
                     ->required(),
                 ]),
             Forms\Components\Grid::make(2)
                 ->schema([
                     Forms\Components\Select::make('quality')->label(__('Quality'))
                     ->options(['normal' => __('Normal'),'medium'=>__('Medium'),'excellent'=>__('Excellent')])
+                    ->default('normal')
                     ->required(),
                     Forms\Components\Select::make('rate')->label(__('Rate( ex= 1000 )'))
                     ->options([1 => 'Per 1',1000=>'Per 1000'])
@@ -75,6 +77,7 @@ class ServiceResource extends Resource
                 ->schema([
                     Forms\Components\Select::make('partial_process')->label(__('Partial Process'))
                     ->options([1 => __('Active'),0=>__('InActive')])
+                    ->default(0)
                     ->required()
                     ->columnSpan('full')
                 ]),

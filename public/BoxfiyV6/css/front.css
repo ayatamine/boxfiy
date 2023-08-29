@@ -1574,24 +1574,24 @@ input[type="range"]::-ms-track {
     padding-top: 80px;
 }
 
-#pay1,#pay2,#pay3,#pay4,#pay5,#pay6{
+/* #pay1,#pay2,#pay3,#pay4,#pay5,#pay6{
     opacity: 0;
     transition-duration: 1s;
-}
+} */
 
-#pay1,#pay3,#pay5
+/* #pay1,#pay3,#pay5
 {
     transform: translateX(-50px);
-}
+} */
 
-#pay3,#pay4{
+/* #pay3,#pay4{
     transition-delay: 0.2s;
 }
 
 #pay2,#pay4,#pay6
 {
     transform: translateX(50px);
-}
+} */
 
 
 .add-funds .funds-content {
