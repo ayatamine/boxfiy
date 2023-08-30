@@ -432,7 +432,19 @@ $(document).ready(function() {
         })
 
     }
-
+    $("a.info").on( "mouseenter", function() {
+        $(this).find('.logout-dropdown').css("display","initial");
+    })
+    // $(".logout-dropdown").on( "mouseleave", function(e) {
+    //     // if(!$(e.target).is($(this))){
+    //         $(this).css("display","none");
+    //     // }
+    // })
+    $('body').on('mouseleave', function(e) {
+        if (!$(e.target).is('.logout-dropdown')) {
+            $('.logout-dropdown').css("display","none");
+        }
+    });
 
 
 

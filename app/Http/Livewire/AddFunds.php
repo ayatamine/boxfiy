@@ -47,7 +47,7 @@ class AddFunds extends Component
     }
     public function updatedPaymentMethod($value)
     {
-        
+         
             $payment_gateway =json_decode( $this->payment_method);
             $this->min_amount = $payment_gateway->min_amount;
             $this->max_amount = $payment_gateway->max_amount;
@@ -56,7 +56,7 @@ class AddFunds extends Component
     }
     public function submitAddFund(){
         $payment_gateway =json_decode( $this->payment_method);
-        if($payment_gateway->unique_keyword !== 'spaceremit')
+        if($payment_gateway?->unique_keyword !== 'spaceremit')
         {
             // $payment_gateway = PaymentGateway::where('unique_keyword',$this->payment_method)->first();
             if($payment_gateway?->is_attached_with_spaceremit)

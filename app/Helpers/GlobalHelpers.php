@@ -55,3 +55,31 @@ if(!function_exists('markSingleNotificationsAsRead')){
         }
     }
 }
+if(!function_exists('DayTime'))
+{
+    function DayTime()
+    {
+        // Get the current time as a DateTime object
+        $current_time = new DateTime();
+
+        // Define morning and evening time ranges as DateTime objects
+        $morning_start = DateTime::createFromFormat('H:i:s', '00:00:00'); // 6:00 AM
+        $morning_end = DateTime::createFromFormat('H:i:s', '11:59:59');   // 11:59 AM
+        $evening_start = DateTime::createFromFormat('H:i:s', '12:00:00'); // 6:00 PM
+        $evening_end = DateTime::createFromFormat('H:i:s', '23:59:59');   // 11:59 PM
+
+        // Check if it's morning
+        if ($current_time >= $morning_start && $current_time <= $morning_end) {
+            return "Good morning!";
+        } 
+        // Check if it's evening
+        elseif ($current_time >= $evening_start && $current_time <= $evening_end) {
+            return 'Good evening!';
+        } 
+        // If it's not morning or evening, it's daytime
+        // else {
+        //     echo "It's daytime!";
+        // }
+
+    }
+}

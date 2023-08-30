@@ -184,7 +184,7 @@ nav .nav-elements {
 nav .user-info {
     display: flex;
     flex-direction: row;
-    align-items: flex-start;
+    align-items: center;
     gap: 15px;
     position: relative;
 }
@@ -199,8 +199,8 @@ nav .user-info img {
 
 nav .user-info>a img {
     background-color: transparent;
-    width: 74px;
-    height: 60px;
+    width: 45px;
+    height: 45px;
     cursor: pointer;
 }
 
@@ -212,7 +212,7 @@ nav .user-info>img {
 nav .user-info .info h3 {
     margin: 0;
     font-size: 16px;
-    color: #fff;
+    color: #fff;    margin-bottom: 4px;
 }
 
 nav .user-info .info h1 {

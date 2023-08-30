@@ -19,7 +19,7 @@
         </div>
 
         <div class="col-lg-7 col-md-7 col-sm-12 col-xs-12">
-            <form    wire:submit.prevent="submitAddFund">
+            <form    wire:submit.prevent="submitAddFund" x-data="{showSubmit:true}">
                 {{-- @csrf
                 <input type="hidden" name="cmd" value="_xclick">
                 <input type="hidden" name="business" value="{{ $spaceremit_email }}">
@@ -54,14 +54,18 @@
                         <img src="{{asset('BoxfiyV6/images/visa.png')}}">
                     </label> --}}
                     @foreach ($payment_gateways as $key=>$pg)
-                    <label id="pay{{$key+1}}" for="{{$pg->unique_keyword}}" x-data="{show:false}""
-                        @style(['position:relative'=>!$pg->is_attached_with_spaceremit])
-                        @if(!$pg->is_attached_with_spaceremit) @click.prevent="show = !show" @endif
+                    <label id="pay{{$key+1}}" for="{{$pg->unique_keyword}}"
+                         
+                        @if(!$pg->is_attached_with_spaceremit && ($pg->unique_keyword !=='spaceremit'))
+                        x-data="{show:false}"
+                         @click.prevent="show = !show;showSubmit=false"
+                         style="position:relative" 
+                         @endif
+                         @click.prevent="showSubmit=true"
                         >
                         <img src="{{$pg->logo}}">
                         <img class="special" src="{{asset('BoxfiyV6/images/package.png')}}">
-                        <div  @class(['non_related_payment_method'=>!$pg->is_attached_with_spaceremit
-                        ])>
+                        <div  @class(['non_related_payment_method'=>!$pg->is_attached_with_spaceremit && $pg->unique_keyword !=='spaceremit'])>
                             {!! $pg->how_to_pay_description !!}
                         </div>
                     </label>
@@ -92,7 +96,7 @@
                         </ul>
                     </div>
         
-                    <button type="submit">
+                    <button type="submit" x-show="showSubmit">
                         CONTINUE
                         <span wire:loading class="animate-bounce">...</span>
                     </button>

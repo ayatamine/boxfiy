@@ -29,8 +29,14 @@
                             <img src="{{auth()->user()->thumbnail}}">
                         </a>
                         <a href="{{route('profile')}}" class="info">
-                            <h3>Good evening!</h3>
+                            <h3>{{DayTime()}}</h3>
                             <h1>{{fullName()}}</h1>
+                            <span class="logout-dropdown">
+                                <form method="POST" action="{{ route('logout') }}">
+                                    @csrf
+                                    <button type="submit">Logout</button>
+                                </form>
+                            </span>
                         </a>
                     </div>
                 </div>
@@ -62,8 +68,14 @@
                             <img src="{{auth()->user()->thumbnail}}">
                            </a> 
                             <a href="{{route('profile')}}" class="info">
-                                <h3>Good evening!</h3>
+                                <h3>{{DayTime()}}</h3>
                                 <h1>{{fullName()}}</h1>
+                                <span class="logout-dropdown">
+                                    <form method="POST" action="{{ route('logout') }}">
+                                        @csrf
+                                        <button type="submit">Logout</button>
+                                    </form>
+                                </span>
                             </a>
                         </div>
                         @endguest
