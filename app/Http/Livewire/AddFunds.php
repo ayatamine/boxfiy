@@ -47,7 +47,6 @@ class AddFunds extends Component
     }
     public function updatedPaymentMethod($value)
     {
-         
             $payment_gateway =json_decode( $this->payment_method);
             $this->min_amount = $payment_gateway->min_amount;
             $this->max_amount = $payment_gateway->max_amount;

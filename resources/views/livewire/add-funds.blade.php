@@ -60,8 +60,10 @@
                         x-data="{show:false}"
                          @click.prevent="show = !show;showSubmit=false"
                          style="position:relative" 
+                         @else
+                         x-on:click="showSubmit=true"
                          @endif
-                         @click.prevent="showSubmit=true"
+                        
                         >
                         <img src="{{$pg->logo}}">
                         <img class="special" src="{{asset('BoxfiyV6/images/package.png')}}">
@@ -86,7 +88,7 @@
                         <ul class="hidden">
                             {{-- <input id="paypal" value="paypal" type="radio" wire:model="payment_method"> --}}
                             @foreach ($payment_gateways as $pg)
-                            <input id="{{$pg->unique_keyword}}" value="{{$pg}}" type="radio" wire:model="payment_method">
+                            <input id="{{$pg->unique_keyword}}" value="{{$pg}}" name="payment_method" type="radio" wire:model="payment_method">
                             @endforeach
                             {{-- <input id="visa" value="visa" type="radio" wire:model="payment_method"> --}}
                             {{-- <input id="spaceremit" value="spaceremit" type="radio" wire:model="payment_method">

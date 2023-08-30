@@ -109,10 +109,10 @@ window.addEventListener("scroll",function(){
         pay4.style="opacity:1; transform: translateX(0px);";
     }
 
-    if(window.scrollY >= pay5.offsetTop-50)
-    {
-        pay5.style="opacity:1; transform: translateX(0px);";
-    }
+    // if(window.scrollY >= pay5.offsetTop-50)
+    // {
+    //     pay5.style="opacity:1; transform: translateX(0px);";
+    // }
 
     if(window.scrollY >= pay6.offsetTop-50)
     {
