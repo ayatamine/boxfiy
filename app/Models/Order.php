@@ -37,7 +37,11 @@ class Order extends Model
         'amount' => 'double',
         'price' => 'double',
     ];
-
+    public static string $CREATED='pending';
+    static string $PROCESSING='processing';
+    static string $PARTIAL='partial';
+    static string $COMPLETED='completed';
+    static string $CANCELED='canceled';
     public function service(): BelongsTo
     {
         return $this->belongsTo(Service::class);

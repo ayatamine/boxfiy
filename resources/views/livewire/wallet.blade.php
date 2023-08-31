@@ -6,7 +6,7 @@
             </div>
         @endif
         <div class="row">
-            <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12">
+            <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12" wire:ignore>
                 <div class="balance-content">
                     <div class="balance">
                         <i class="fa-solid fa-dollar-sign"></i>
@@ -29,7 +29,7 @@
             <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
                 <div class="coin-content">
                     <img src="{{asset('BoxfiyV6/images/icons/8.png')}}">
-                    <h1>34534 <span>coin</span></h1>
+                    <h1>0 <span>coin</span></h1>
                     <a href="#"><i class="fa-solid fa-arrow-right-arrow-left"></i></a>
                 </div>
             </div>
@@ -76,7 +76,7 @@
             <div wire:loading.flex class="w-[97%] rounded-lg absolute bg-gray-800 z-40 top-6 left-7 flex justify-center items-center  h-full text-white text-3xl "  >
                 <svg class="animate-spin h-20 w-20 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
             </div>
-            <div class="services-container !grid  grid-col-1 sm:grid-cols-2 md:grid-cols-4 ">
+            <div class="services-container @if(count($services)) !grid  grid-col-1 sm:grid-cols-2 md:grid-cols-4 @endif">
                 
                 @forelse ($services as $key=>$service)
                     
@@ -117,13 +117,13 @@
                         <div class="lower">
                             <form method="" action="" wire:submit.prevent='submitOrder'>
                                 <div class="input">
-                                    <input wire:model.defer="selected_service_link.{{$service->id}}" placeholder="link" type="text">
+                                    <input wire:model.defer="selected_service_link.{{$service->id}}" placeholder="link" required type="url">
                                     <button type="button" class="past-link"><i class="fa-solid fa-copy"></i></button>
                                 </div>
                                 <div class="range-details">
                                     <div class="range-input">
                                         <div><span>Quantity</span> <output id="rangevalue">0</output></div>
-                                        <input wire:model.defer="selected_service_quantity.{{$service->id}}" oninput="rangevalue.value=value,rangeprice.value=value*0.002" value="1" min="0" max="5000" type="range">
+                                        <input wire:model.defer="selected_service_quantity.{{$service->id}}" required oninput="rangevalue.value=value,rangeprice.value=((value* {{$service->price}})/{{$service->rate}})" value="{{$service->min_qte}}" min="{{$service->min_qte}}" max="{{$service->max_qte}}" type="range">
                                     </div>
 
                                     <div class="price">

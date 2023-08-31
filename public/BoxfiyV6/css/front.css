@@ -1837,9 +1837,19 @@ text-align: center;
 
 }
 
- .Partially {
+ .Partially,.partial {
     color: #c8df63;
     background-color: #c8df6359;
+    padding: 12px;
+    border-radius: 5px;
+    padding-top: 7px;
+    padding-bottom: 7px;
+    text-align: center;
+
+}
+ .pending {
+    color: #1444c6;
+    background-color: #56bade;
     padding: 12px;
     border-radius: 5px;
     padding-top: 7px;

@@ -14,4 +14,9 @@ class BallanceHistory extends Model
         'amount',
         'payment_gateway_id',
     ];
+    public static $CB = 'credit_ballance';
+    public static $PURSHASE = 'create_order';
+    public static $RETURN = 'return_order';
+    public static $FROM_ADMIN = 'from_admin';
+
 }

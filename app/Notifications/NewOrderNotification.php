@@ -1,27 +1,25 @@
 <?php
 
-namespace App\Notifications\User;
+namespace App\Notifications;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class BalanceCreditedNotification extends Notification
+class NewOrderNotification extends Notification
 {
     use Queueable;
 
     /**
      * Create a new notification instance.
      */
-    public $user;
-    public $balance_history;
+    public $data;
     
-    public function __construct($user,$balance_history)
+    public function __construct($data)
     {
-         $this->user = $user;
-         $this->balance_history = $balance_history;
-    }
+    $this->data = $data;
+}
 
     /**
      * Get the notification's delivery channels.
@@ -30,7 +28,7 @@ class BalanceCreditedNotification extends Notification
      */
     public function via(object $notifiable): array
     {
-        return ['mail','database'];
+        return ['database','mail'];
     }
 
     /**
@@ -39,10 +37,12 @@ class BalanceCreditedNotification extends Notification
     public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage)
-                     ->line('Hi '.$this->user)
-                     ->line('Your balance has been credited by '.$this->balance_history->amount.'$')
-                    ->action('Go to dashboard', url(route('wallet')))
-                    ->line('Thank, '.config('app.name')); 
+                ->line('A new order has been submitted by '.auth()->user()->name)
+                ->line('OrderId: ' . $this->data['id'])
+                ->line('Total Amount: ' . $this->data['price'].'$')
+                // ->line('Content: ' . $this->content)
+                ->action('View Order', url(route('filament.resources.tickets.index')))
+                ->line('Thank, '.config('app.name'));
     }
 
     /**
@@ -52,9 +52,10 @@ class BalanceCreditedNotification extends Notification
      */
     public function toArray(object $notifiable): array
     {
-        return [
-            'title' =>'Your balance has been credited by '.$this->balance_history->amount,
-            'created_at'=>$this->balance_history->created_at,
+        return 
+        [
+            'title' =>'New order submitted #'.$this->data['id'],
+            'order'=>$this->data
         ];
     }
 }

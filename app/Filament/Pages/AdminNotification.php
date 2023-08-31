@@ -2,7 +2,10 @@
 
 namespace App\Filament\Pages;
 
+use Exception;
+use Carbon\Carbon;
 use Filament\Pages\Page;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Auth;
 use Filament\Notifications\Notification;
@@ -22,13 +25,33 @@ class AdminNotification extends Page
        ];
     }
 
-    public function markAllAsRead(){
-        markNotificationsAsRead();
-        Notification::make()
-                    ->title('All Notification marked as read successfully')
+    public function markNotificationsAsRead()
+    {
+        try {
+            $notifications =auth()->user()->unreadNotifications->markAsRead();
+            Notification::make()
+                    ->title('Marked as read successfully')
                     ->icon('heroicon-o-document-text') 
                     ->iconColor('success') 
                     ->send();
-        return back();
+            return back();
+        } catch (Exception $ex) {
+            throw $ex;
+        }
+    }
+    public function markSingleNotificationsAsRead($id)
+    {
+        try {
+            DB::table('notifications')->where('id',$id)->update(['read_at'=>Carbon::now()]);
+
+            Notification::make()
+                    ->title('Marked as read successfully')
+                    ->icon('heroicon-o-document-text') 
+                    ->iconColor('success') 
+                    ->send();
+            return back();
+        } catch (Exception $ex) {
+            throw $ex;
+        }
     }
 }

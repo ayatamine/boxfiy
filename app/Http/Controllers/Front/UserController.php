@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers\Front;
 
-use App\Http\Controllers\Controller;
+use App\Models\Order;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class UserController extends Controller
 {
@@ -18,7 +19,7 @@ class UserController extends Controller
     }
     public function notifications()
     {
-        
+
         return view('notifications');
     }
     public function markNotificationsAsRead()
@@ -26,5 +27,12 @@ class UserController extends Controller
         
         markNotificationsAsRead();
         return back();
+    }
+    public function orderHistory()
+    {
+        if(request()->has('notification_id')) markSingleNotificationsAsRead(request()->get('notification_id'),$with_notify=false);
+
+        $orders = Order::with('service:id,name')->whereUserId(auth()->id())->latest()->paginate(10);
+        return view('order_history',compact('orders'));
     }
 }

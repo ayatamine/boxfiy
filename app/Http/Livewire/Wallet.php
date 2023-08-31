@@ -2,10 +2,16 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\BallanceHistory;
+use App\Models\User;
+use App\Models\Order;
 use App\Models\Service;
 use Livewire\Component;
 use App\Models\Category;
+use App\Notifications\NewOrderNotification;
+use App\Notifications\User\NewOrderNotification as UserNewOrderNotification;
 use Livewire\WithPagination;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Cache;
 use Filament\Notifications\Notification;
 
@@ -39,12 +45,59 @@ class Wallet extends Component
     //     dd($value);
     // }
     public function submitOrder(){
-        if(!count($this->selected_service_quantity))     
+        if(!count($this->selected_service_quantity) || !count($this->selected_service_link))     
         {
               $this->dispatchBrowserEvent('no-form-data');
               return;
         }  
-        $this->dispatchBrowserEvent('order-submit');
+        $service_id = array_key_last($this->selected_service_quantity);
+        $quantity = array_pop($this->selected_service_quantity);
+        $link = array_pop($this->selected_service_link);
+        $service = Service::findOrFail($service_id);
+        // 'name',
+        // 'category_id',
+        // 'min_qte',
+        // 'max_qte',
+        // 'price',
+        // 'status',
+        // 'type',
+        // 'quality',
+        // 'partial_process',
+        // 'data_source',
+        // 'api_id',
+        // 'api_service_id',
+        // 'description',
+        // 'image',
+        // 'avg_time',
+        // 'rate'
+        DB::transaction(function() use ($service,$link,$quantity){
+            if($service->data_source !== 'api')
+            {
+                $order = Order::create([
+                    'service_id'=>$service->id,
+                    'user_id' =>auth()->id(),
+                    'link' =>$link,
+                    'amount' =>$quantity,
+                    'price'=>floatval($quantity * $service->price) ?? 0,
+                    'status'=>'pending'
+                ]);
+                auth()->user()->decrement('wallet_balance',$order->price);
+                $BallanceHistory = BallanceHistory::create([
+                    'user_id' =>auth()->id(),
+                    'transaction_type' =>BallanceHistory::$PURSHASE,
+                    'amount' =>$order->price,
+                ]);
+                auth()->user()->notify(new UserNewOrderNotification($service->name,$order));
+                //notify admin
+                $adminUser = User::where('is_admin', true)->first(); 
+                if ($adminUser) {
+                    $adminUser->notify(new NewOrderNotification($order));
+                }
+                session()->flash('success','your order has been submitted , we will inform you soon');
+                return back();
+            }
+        });
+        // $this->dispatchBrowserEvent('order-submit');
     }
  
     public function paginationView()

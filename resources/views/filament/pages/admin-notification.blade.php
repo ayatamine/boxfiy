@@ -1,3 +1,4 @@
+use Exception;
 <x-filament::page>
 
     <div class="container mx-auto">
@@ -24,7 +25,7 @@
               </div>
             </div>
           @if(!$notification->read_at)
-          <a href="{{route('admin.notification.mark-as-read',['id'=>$notification->id])}}"  class="text-sm bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded">
+          <a href="" @click.prevent="markSingleNotificationsAsRead({{$notification->id}})" class="text-sm bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded">
             Mark as Read
           </a>
           @endif

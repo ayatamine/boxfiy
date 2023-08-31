@@ -16,7 +16,7 @@
                             <a href="{{route('addFunds')}}">add funds</a>
                         </li>
                         <li>
-                            <a href="#">order history</a>
+                            <a href="{{route('orders.index')}}">order history</a>
                         </li>
                         <li>
                             <a href="{{route('tickets.index')}}">support</a>

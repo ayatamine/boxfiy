@@ -75,11 +75,12 @@ class ServiceResource extends Resource
                 ]),
             Forms\Components\Grid::make(2)
                 ->schema([
-                    Forms\Components\Select::make('partial_process')->label(__('Partial Process'))
-                    ->options([1 => __('Active'),0=>__('InActive')])
-                    ->default(0)
-                    ->required()
-                    ->columnSpan('full')
+                    // Forms\Components\Select::make('partial_process')->label(__('Partial Process'))
+                    // ->options([1 => __('Active'),0=>__('InActive')])
+                    // ->default(0)
+                    // ->required()
+                    // ->columnSpan('full')
+                    Forms\Components\Toggle::make('partial_process')->label(__('Partial Process')),
                 ]),
             Forms\Components\Grid::make(2)
                 ->schema([

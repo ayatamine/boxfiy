@@ -55,6 +55,7 @@ class AddFunds extends Component
     }
     public function submitAddFund(){
         $payment_gateway =json_decode( $this->payment_method);
+        if(!$this->final_amount) $this->final_amount = $this->amount;
         if($payment_gateway?->unique_keyword !== 'spaceremit')
         {
             // $payment_gateway = PaymentGateway::where('unique_keyword',$this->payment_method)->first();
