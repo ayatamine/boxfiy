@@ -4,17 +4,21 @@ namespace App\Http\Livewire;
 
 use Livewire\Component;
 use Illuminate\Support\Facades\Auth;
+use Livewire\WithPagination;
 
 class Notification extends Component
 {
-    public $notifications;
-
+    use WithPagination;
+    public function paginationView()
+    {
+        return 'livewire.custom-pagination2';
+    }
     public function render()
     {
-        $this->notifications = Auth::user()->notifications;
+        $notifications = Auth::user()->notifications()->paginate(10) ;
 
         return view('livewire.notification',[
-            'notifications'=>$this->notifications
+            'notifications'=>$notifications
         ]);
     }
 }

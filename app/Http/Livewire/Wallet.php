@@ -14,6 +14,7 @@ use Livewire\WithPagination;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Cache;
 use Filament\Notifications\Notification;
+use Illuminate\Support\Facades\Http;
 
 class Wallet extends Component
 {
@@ -81,21 +82,56 @@ class Wallet extends Component
                     'price'=>floatval($quantity * $service->price) ?? 0,
                     'status'=>'pending'
                 ]);
-                auth()->user()->decrement('wallet_balance',$order->price);
-                $BallanceHistory = BallanceHistory::create([
-                    'user_id' =>auth()->id(),
-                    'transaction_type' =>BallanceHistory::$PURSHASE,
-                    'amount' =>$order->price,
-                ]);
-                auth()->user()->notify(new UserNewOrderNotification($service->name,$order));
-                //notify admin
-                $adminUser = User::where('is_admin', true)->first(); 
-                if ($adminUser) {
-                    $adminUser->notify(new NewOrderNotification($order));
+               
+            }else
+            {
+                $api = $service->api;
+                $response = Http::acceptJson()
+                            ->post($api->url, [
+                                'key' => $api->key,
+                                'action' => 'add',
+                                'service' => $service->api_service_id,
+                                'link' =>$link,
+                                'quantity' => $quantity,
+                            ]);
+                try{
+                    if ($response->successful()) {
+                        $order = Order::create([
+                            'service_id'=>$service->id,
+                            'order_number'=>$response->json()['order'],
+                            'user_id' =>auth()->id(),
+                            'link' =>$link,
+                            'amount' =>$quantity,
+                            'price'=>floatval($quantity * $service->price) ?? 0,
+                            'status'=>'pending'
+                        ]);
+                    } elseif ($response->clientError()) {
+                        session()->flash('error','There is an error from client side, please contact admins');
+                        return back();
+                    } elseif ($response->serverError()) {
+                        session()->flash('error','There is an error occured from api service');
+                        return back();
+                    }
                 }
-                session()->flash('success','your order has been submitted , we will inform you soon');
-                return back();
+                catch(\Exception $ex)
+                {
+                    session()->flash('error', 'There is an error from client side, please contact admins');  
+                }
             }
+            auth()->user()->decrement('wallet_balance',$order->price);
+            $BallanceHistory = BallanceHistory::create([
+                'user_id' =>auth()->id(),
+                'transaction_type' =>BallanceHistory::$PURSHASE,
+                'amount' =>$order->price,
+            ]);
+            auth()->user()->notify(new UserNewOrderNotification($service->name,$order));
+            //notify admin
+            $adminUser = User::where('is_admin', true)->first(); 
+            if ($adminUser) {
+                $adminUser->notify(new NewOrderNotification($order));
+            }
+            session()->flash('success','your order has been submitted , we will inform you soon');
+            return back();
         });
         // $this->dispatchBrowserEvent('order-submit');
     }

@@ -46,8 +46,10 @@ class UserResource extends Resource
                     ->required()
                     ->maxLength(255)
                     ->disabled(),
+                    Forms\Components\TextInput::make('wallet_balance')->numeric(),
+
                 ]),
-                Forms\Components\Toggle::make('account_status')
+                Forms\Components\Toggle::make('account_status'),
             ]);
     }
     public static function table(Table $table): Table

@@ -8,3 +8,6 @@ Alpine.plugin(NotificationsAlpinePlugin)
 window.Alpine = Alpine
 
 Alpine.start()
+window.addEventListener('load-order-state', event => {
+ alert('sdfsdf');
+});

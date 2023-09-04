@@ -11,7 +11,10 @@ export default {
                 primary: colors.blue,
                 success: colors.green,
                 warning: colors.yellow,
-                mainBg: "#f38e06"
+                mainBg: "#f38e06",
+                processing:'#f0b758',
+                completed:"#1ec762",
+                pending:'#1444c6'
             },
         },
     },

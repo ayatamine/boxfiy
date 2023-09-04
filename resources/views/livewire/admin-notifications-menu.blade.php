@@ -6,28 +6,52 @@
   
     <!-- Notification Dropdown -->
     <div x-show="open" @click.outside="open=false" class="w-max border absolute right-0 mt-2 bg-white rounded-md shadow-lg">
-      <div class="py-2">
+      <div class="py-2" style="max-height: 200px;
+      overflow-y: scroll;">
         <!-- Notification Item -->
         @php
             $notifications = Auth::user()->notifications;
         @endphp
         @forelse ($notifications as $key =>$notification)
-        @if($notification->type =='App\Notifications\NewTicketReplyNotification' || $notification->type =='App\Notifications\NewTicketNotification')
-          @php
+        @switch($notification->type)
+            @case("App\Notifications\NewTicketReplyNotification")
+            @case("App\Notifications\NewTicketNotification")
+              @php
               $query = ['record'=>$notification->data['ticket_id'] ?? $notification->data['id']];
               if($notification->read_at ==null){
                 $query['notification_id']= $notification->id ;
               }
-          @endphp
-          <a href="{{route('filament.resources.tickets.view',$query)}}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900">
-            {{$notification->data['title']}}
-          </a>
-          @else 
-          <a href="{{route('filament.pages.admin-notification')}}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900">
-            {{$notification->data['title']}}
-          </a>
-          @endif
-          @if($key > 0) <hr> @endif
+              @endphp
+              <a href="{{route('filament.resources.tickets.view',$query)}}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900">
+                {{$notification->data['title']}}
+              </a>
+              <hr>
+             @case("App\Notifications\NewOrderNotification")
+             
+                @php
+                if(array_key_exists('order',$notification->data) )
+                {
+                $query = ['record'=> $notification->data['order']['id']];
+                }
+                if($notification->read_at ==null){
+                  $query['notification_id']= $notification->id ;
+                }
+                
+                @endphp
+                <a href="{{route('filament.resources.orders.view',$query)}}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900">
+                  {{$notification->data['title']}}
+                </a>
+                <hr>
+                @break
+            @case(2)
+                
+                @break
+            @default
+              <a href="{{route('filament.pages.admin-notification')}}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900">
+                {{$notification->data['title']}}
+              </a>
+              <hr>
+        @endswitch
         @empty
           no notification found  
         @endforelse
@@ -37,7 +61,10 @@
   
       <!-- View All Notifications Button -->
       <div class="px-4 py-2 bg-gray-100">
-        <a href="{{route('filament.pages.admin-notification')}}" class="block text-sm text-center text-blue-500 hover:underline">View All Notifications</a>
+        <a href="{{route('filament.pages.admin-notification')}}" class="flex items-center gap-2 justify-center text-sm text-center text-blue-500 hover:underline">
+          <svg class="h-4 w-4 text-blue-500 dark:text-red-500" width="64px" height="64px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <title></title> <g id="Complete"> <g id="bell"> <g> <path d="M18.9,11.2s0-8.7-6.9-8.7-6.9,8.7-6.9,8.7v3.9L2.5,17.5h19l-2.6-2.4Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path> <path d="M14.5,20.5s-.5,1-2.5,1-2.5-1-2.5-1" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path> </g> </g> </g> </g></svg>
+          <span>View All Notifications</span>
+        </a>
       </div>
     </div>
   </div>

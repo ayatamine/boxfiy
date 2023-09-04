@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Api;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Database\Eloquent\Casts\Attribute;

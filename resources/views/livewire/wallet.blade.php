@@ -4,7 +4,11 @@
             <div class="bg-green-500 text-white text-2xl p-5 py-6 rounded-lg mb-3">
                 {{ session('success') }}
             </div>
-        @endif
+        @elseif(session()->has('error'))
+            <div class="bg-red-500 text-white text-2xl p-5 py-6 rounded-lg mb-3">
+                {{ session('error') }}
+            </div>
+        @endif 
         <div class="row">
             <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12" wire:ignore>
                 <div class="balance-content">

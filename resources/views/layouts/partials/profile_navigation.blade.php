@@ -24,7 +24,14 @@
                     </ul>
 
                     <div class="user-info">
-                        <a href="{{route('notifications')}}"><img src="{{asset('boxfiyV6/images/icons/10.png')}}"></a>
+                        <a href="{{route('notifications')}}" class="flex">
+                            @if( $count =count(auth()->user()->unreadNotifications))
+                            <span class="bg-red-500 text-white  rounded relative -top-4 h-8 w-8  text-center ">
+                               {{$count}}
+                            </span>
+                            @endif
+                            <img src="{{asset('boxfiyV6/images/icons/10.png')}}">
+                        </a> 
                         <a href="{{route('profile')}}">
                             <img src="{{auth()->user()->thumbnail}}">
                         </a>
@@ -63,7 +70,14 @@
                         </li>
                         @else
                         <div class="user-info">
-                            <a href="#"><img src="{{asset('boxfiyV6/images/icons/10.png')}}"></a>
+                            <a href="{{route('notifications')}}" class="flex">
+                                @if( $count =count(auth()->user()->unreadNotifications))
+                                <span class="bg-red-500 text-white  rounded relative -top-4 h-8 w-8  text-center ">
+                                    {{$count}}
+                                </span>
+                                @endif
+                                <img src="{{asset('boxfiyV6/images/icons/10.png')}}">
+                            </a>
                            <a href="{{route('profile')}}">
                             <img src="{{auth()->user()->thumbnail}}">
                            </a> 

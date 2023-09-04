@@ -29,6 +29,9 @@
                     @case('App\Notifications\User\BalanceCreditedNotification')
                     <a class="block mt-2 text-blue-600 underline underline-offset-2" href="{{route('wallet',['notification_id'=>$notification->id])}}" class="mx-3">View Balance</a>
                         @break
+                    @case('App\Notifications\User\NewOrderNotification')
+                    <a class="block mt-2 text-blue-600 underline underline-offset-2" href="{{route('orders.index',['notification_id'=>$notification->id])}}" class="mx-3">View Orders</a>
+                        @break
                     @default
                     <a class="block mt-2 text-blue-600 underline underline-offset-2" href="#" class="mx-3">View</a>
  
@@ -52,7 +55,7 @@
         </div>
       </div>
       @endforelse
-     
+      {{$notifications->links()}}
       <!-- Add more notifications with buttons -->
     </div>
 </div>
