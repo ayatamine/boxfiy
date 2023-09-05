@@ -72,6 +72,7 @@ class Wallet extends Component
         // 'avg_time',
         // 'rate'
         DB::transaction(function() use ($service,$link,$quantity){
+            $order = null;
             if($service->data_source !== 'api')
             {
                 $order = Order::create([
@@ -118,20 +119,22 @@ class Wallet extends Component
                     session()->flash('error', 'There is an error from client side, please contact admins');  
                 }
             }
-            auth()->user()->decrement('wallet_balance',$order->price);
-            $BallanceHistory = BallanceHistory::create([
-                'user_id' =>auth()->id(),
-                'transaction_type' =>BallanceHistory::$PURSHASE,
-                'amount' =>$order->price,
-            ]);
-            auth()->user()->notify(new UserNewOrderNotification($service->name,$order));
-            //notify admin
-            $adminUser = User::where('is_admin', true)->first(); 
-            if ($adminUser) {
-                $adminUser->notify(new NewOrderNotification($order));
+            if($order) {
+                auth()->user()->decrement('wallet_balance', $order->price);
+                $BallanceHistory = BallanceHistory::create([
+                    'user_id' => auth()->id(),
+                    'transaction_type' => BallanceHistory::$PURSHASE,
+                    'amount' => $order->price,
+                ]);
+                auth()->user()->notify(new UserNewOrderNotification($service->name, $order));
+                //notify admin
+                $adminUser = User::where('is_admin', true)->first();
+                if ($adminUser) {
+                    $adminUser->notify(new NewOrderNotification($order));
+                }
+                session()->flash('success', 'your order has been submitted , we will inform you soon');
+                return back();
             }
-            session()->flash('success','your order has been submitted , we will inform you soon');
-            return back();
         });
         // $this->dispatchBrowserEvent('order-submit');
     }
