@@ -163,7 +163,7 @@ class ServiceResource extends Resource
             'index' => Pages\ListServices::route('/'),
             'create' => Pages\CreateService::route('/create'),
             'edit' => Pages\EditService::route('/{record}/edit'),
-            // 'view' => Pages\ViewService::route('/{record}'),
+            'view' => Pages\ViewService::route('/{record}'),
         ];
     }    
 }

@@ -56,10 +56,10 @@
                 <h3 class="text-lg font-semibold  underline underline-offset-2 p-2 bg-gray-200 border mb-3">Order Details</h3>
                 <!-- Loop through and display order items -->
                 <div class="  mb-2">
-                    <div class="flex gap-2 mb-2"><span class="font-semibold">Link:</span> <a  class="underline underline-offset-2 text-primary-600" target="_blank" href="{{$record->link}}">{{$record->link}}</a></div>
+                    <div class="flex gap-2 mb-2"><span class="font-semibold">Link:</span> <a  class="underline underline-offset-2 text-primary-600" target="_blank" href="{{$record->link}}">{{\Illuminate\Support\Str::limit($record->link,35)}}</a></div>
                     <div class="flex gap-2 mb-2"><span class="font-semibold">Amount:</span> <span>{{$record->amount}}</span></div>
                     <div class="flex gap-2 mb-2"><span class="font-semibold">Price:</span> <span>{{$record->price}}$</span></div>
-                    @if(!isset($order_status))
+                    @if($record->service->data_source !== 'api')
                     <div div class="flex gap-2 mb-2"><span class="font-semibold">Status:</span> 
                         <span 
                         @class([$record->status,'p-1 px-2 rounded'])

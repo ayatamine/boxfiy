@@ -12,6 +12,7 @@ use Filament\Resources\Table;
 use Filament\Resources\Resource;
 use Filament\Tables\Columns\ViewColumn;
 use Illuminate\Database\Eloquent\Builder;
+use Filament\Tables\Filters;
 use App\Filament\Resources\OrderResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\OrderResource\RelationManagers;
@@ -58,10 +59,15 @@ class OrderResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('service.name')->limit(70)->sortable()->searchable(),
+                Tables\Columns\TextColumn::make('service.name')->limit(70)->sortable()->searchable()
+                ->url(fn (Order $record): string =>route('filament.resources.services.view',$record->service_id))
+                ->openUrlInNewTab(),
+
                 Tables\Columns\TextColumn::make('user.name')->sortable()->searchable(),
                 Tables\Columns\TextColumn::make('order_number')->sortable()->searchable(),
-                Tables\Columns\TextColumn::make('link')->limit(35)->sortable()->searchable(),
+                Tables\Columns\TextColumn::make('link')->limit(20)->sortable()->searchable()
+                        ->url(fn (Order $record): string => $record->link)
+                        ->openUrlInNewTab(),
                 Tables\Columns\TextColumn::make('amount')->sortable()->searchable(),
                 Tables\Columns\TextColumn::make('price')->sortable()->searchable(),
                 
@@ -80,13 +86,14 @@ class OrderResource extends Resource
                             'success' => static fn ($state): bool => $state === Order::$COMPLETED,
                             'danger' => static fn ($state): bool => $state ===  Order::$CANCELED,
                         ])
-                        ->getStateUsing(function (Order $record): string {
-                          if($record->service->data_source =="manual") return  Str::lower($record->status);
-                          return "Load State";
-                        })
-                        ->action(function (Order $record): void {
+                        // ->getStateUsing(function (Order $record): string {
+                        //   if($record->service->data_source =="manual") return  Str::lower($record->status);
+                        //   return "Load State";
+                        // })
+                        // ->action(function (Order $record): void {
                            
-                        }),
+                        // })
+                        ,
                 // ViewColumn::make('status')->view('filament.tables.columns.order_status'),
                 Tables\Columns\TextColumn::make('created_at')
                     ->date(),
@@ -94,7 +101,27 @@ class OrderResource extends Resource
                     ->date(),
             ])
             ->filters([
-                //
+                Filters\SelectFilter::make('status')
+                ->options([
+                    Order::$CREATED => 'Pending',
+                    Order::$PROCESSING => 'Processing',
+                    Order::$PARTIAL => 'Partial',
+                    Order::$COMPLETED => 'Completed',
+                    Order::$CANCELED => 'Canceled',
+                ])
+                ->attribute('status'),
+                // Filters\SelectFilter::make('data_source')
+                // ->relationship('service', 'data_source')
+                Filters\TernaryFilter::make('data_source')
+                ->placeholder('All Orders')
+                ->trueLabel('Linked with api')
+                ->falseLabel('Manual')
+                ->queries(
+                    true: fn (Builder $query) => $query->whereHas('service',fn (Builder $query) =>$query->whereDataSource('api')),
+                    false: fn (Builder $query) => $query->whereHas('service',fn (Builder $query) =>$query->whereDataSource('manual')),
+                    // blank: fn (Builder $query) => $query),
+                ),
+                // ->attribute('service.data_source')
             ])
             ->actions([
                 // Tables\Actions\EditAction::make(),

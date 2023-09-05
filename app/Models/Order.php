@@ -2,9 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Order extends Model
 {
@@ -23,6 +24,7 @@ class Order extends Model
         'amount',
         'price',
         'status',
+        'was_refunded'
     ];
 
     /**
@@ -36,6 +38,7 @@ class Order extends Model
         'user_id' => 'integer',
         'amount' => 'double',
         'price' => 'double',
+        'was_refunded'=>'boolean'
     ];
     public static string $CREATED='pending';
     static string $PROCESSING='processing';

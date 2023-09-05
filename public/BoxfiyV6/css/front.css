@@ -1960,19 +1960,19 @@ text-align: center;
 
 .new-ticket > h1{
     color: white;
-    font-size: 35px;
+    font-size: 25px;
     font-weight: 600;
     margin-left: 10px;
     display: inline;
 }
 .new-ticket > a{
     background-color: var(--secondry-color);
-text-align: center;
-font-size: 40px;
-color: white;
-padding:10px ;
-border-radius: 15px;
-transition-duration: 0.3s;
+    text-align: center;
+    font-size: 26px;
+    color: white;
+    padding: 3px 7px;
+    border-radius: 7px;
+    transition-duration: 0.3s;
 }
 
 .new-ticket > a:hover{

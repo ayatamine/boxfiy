@@ -1,13 +1,13 @@
 <section class="wallet">
     <div class="container">
         @if (session()->has('success'))
-            <div class="bg-green-500 text-white text-2xl p-5 py-6 rounded-lg mb-3">
+            <x-dissmissable-alert type="success">
                 {{ session('success') }}
-            </div>
+            </x-dissmissable-alert>
         @elseif(session()->has('error'))
-            <div class="bg-red-500 text-white text-2xl p-5 py-6 rounded-lg mb-3">
+            <x-dissmissable-alert type="error">
                 {{ session('error') }}
-            </div>
+            </x-dissmissable-alert>
         @endif 
         <div class="row">
             <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12" wire:ignore>
