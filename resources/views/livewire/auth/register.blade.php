@@ -93,7 +93,7 @@
 
                     <form action="" method="" wire:submit.prevent="register">
                         <div class="input">
-                            <label><img src="{{asset('boxfiyV6/images/icons/17.png')}}"></label>
+                            <label><img src="{{asset('BoxfiyV6/images/icons/17.png')}}"></label>
                             <input  wire:model.lazy="username" autofocus  placeholder="username" type="text" name="" class="">
                             @error('username')
                             <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
@@ -101,7 +101,7 @@
                         </div>
 
                         <div class="input">
-                            <label><img src="{{asset('boxfiyV6/images/icons/18.png')}}"></label>
+                            <label><img src="{{asset('BoxfiyV6/images/icons/18.png')}}"></label>
                             <input wire:model.lazy="email" placeholder="Email" type="email" name="" class="">
                             @error('email')
                             <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
@@ -109,7 +109,7 @@
                         </div>
 
                         <div class="input">
-                            <label><img src="{{asset('boxfiyV6/images/icons/18.png')}}"></label>
+                            <label><img src="{{asset('BoxfiyV6/images/icons/18.png')}}"></label>
                             <input wire:model.lazy="password" placeholder="Password" type="password" name="" class="">
                             @error('password')
                             <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
@@ -118,7 +118,7 @@
 
 
                         <div class="input">
-                            <label><img src="{{asset('boxfiyV6/images/icons/18.png')}}"></label>
+                            <label><img src="{{asset('BoxfiyV6/images/icons/18.png')}}"></label>
                             <input wire:model.lazy="passwordConfirmation" placeholder="Password" type="password" name="" class="">
                         </div>
 
@@ -130,9 +130,9 @@
                 </div>
 
                 <div class="images">
-                    <img src="{{asset('boxfiyV6/images/icons/3.png')}}">
-                    <img src="{{asset('boxfiyV6/images/icons/2.png')}}">
-                    <img src="{{asset('boxfiyV6/images/icons/4.png')}}">
+                    <img src="{{asset('BoxfiyV6/images/icons/3.png')}}">
+                    <img src="{{asset('BoxfiyV6/images/icons/2.png')}}">
+                    <img src="{{asset('BoxfiyV6/images/icons/4.png')}}">
 
                 </div>
             </div>

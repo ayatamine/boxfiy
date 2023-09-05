@@ -3,7 +3,7 @@
         <div class="row">
             <div class="nav-content">
                 <div class="logo">
-                    <img src="{{asset('boxfiyV6/images/logo/133413485_388547598914031_8784098996627337073_n.png')}}">
+                    <img src="{{asset('BoxfiyV6/images/logo/133413485_388547598914031_8784098996627337073_n.png')}}">
                 </div>
 
                 <div class="nav-elements">
@@ -30,7 +30,7 @@
                                {{$count}}
                             </span>
                             @endif
-                            <img src="{{asset('boxfiyV6/images/icons/10.png')}}">
+                            <img src="{{asset('BoxfiyV6/images/icons/10.png')}}">
                         </a> 
                         <a href="{{route('profile')}}">
                             <img src="{{auth()->user()->thumbnail}}">
@@ -76,7 +76,7 @@
                                     {{$count}}
                                 </span>
                                 @endif
-                                <img src="{{asset('boxfiyV6/images/icons/10.png')}}">
+                                <img src="{{asset('BoxfiyV6/images/icons/10.png')}}">
                             </a>
                            <a href="{{route('profile')}}">
                             <img src="{{auth()->user()->thumbnail}}">

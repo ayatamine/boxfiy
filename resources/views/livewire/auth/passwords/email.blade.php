@@ -69,7 +69,7 @@
                     <form class="flex items-center" action="" method=""  wire:submit.prevent="sendResetPasswordLink">
 
                         <div class="input w-2/3">
-                            <label><img src="{{asset('boxfiyV6/images/icons/18.png')}}"></label>
+                            <label><img src="{{asset('BoxfiyV6/images/icons/18.png')}}"></label>
                             <input wire:model.lazy="email" placeholder="Email" type="email" name="" class="">
                             @error('email')
                             <p class="mt-2 text-lg text-red-600">{{ $message }}</p>
@@ -85,9 +85,9 @@
                 </div>
 
                 <div class="images">
-                    <img src="{{asset('boxfiyV6/images/icons/3.png')}}">
-                    <img src="{{asset('boxfiyV6/images/icons/2.png')}}">
-                    <img src="{{asset('boxfiyV6/images/icons/4.png')}}">
+                    <img src="{{asset('BoxfiyV6/images/icons/3.png')}}">
+                    <img src="{{asset('BoxfiyV6/images/icons/2.png')}}">
+                    <img src="{{asset('BoxfiyV6/images/icons/4.png')}}">
 
                 </div>
             </div>

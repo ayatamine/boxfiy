@@ -27,7 +27,7 @@
                         </li>
                         @auth   
                         <div class="user-info">
-                            <a href="{{route('notifications')}}"><img src="{{asset('boxfiyV6/images/icons/10.png')}}"></a>
+                            <a href="{{route('notifications')}}"><img src="{{asset('BoxfiyV6/images/icons/10.png')}}"></a>
                             <a href="{{route('profile')}}">
                                 <img src="{{auth()->user()->thumbnail}}">
                             </a>
