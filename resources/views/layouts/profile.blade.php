@@ -31,7 +31,11 @@
 
     <body style="">
    
-        @include('layouts.partials.profile_navigation')
+        @guest 
+          @include('layouts.partials.index_navigation') 
+        @else 
+          @include('layouts.partials.profile_navigation')
+        @endguest
         @yield('content')
     
         @isset($slot)

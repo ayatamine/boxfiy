@@ -23,7 +23,7 @@ Swal.fire({
   icon: 'success',
   title:  'Order Submitted Successfully',
   showConfirmButton: false,
-  timer: 3000
+  timer: 5000
 })
 })
   window.addEventListener('no-form-data', event => {

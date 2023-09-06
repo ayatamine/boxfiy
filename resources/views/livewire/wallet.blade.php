@@ -77,9 +77,9 @@
 
         <div class="row relative">
             
-            <div wire:loading.flex class="w-[97%] rounded-lg absolute bg-gray-800 z-40 top-6 left-7 flex justify-center items-center  h-full text-white text-3xl "  >
+            {{-- <div wire:loading.flex class="w-[97%] rounded-lg absolute bg-gray-800 z-40 top-6 left-7 flex justify-center items-center  h-full text-white text-3xl "  >
                 <svg class="animate-spin h-20 w-20 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
-            </div>
+            </div> --}}
             <div class="services-container @if(count($services)) !grid  grid-col-1 sm:grid-cols-2 md:grid-cols-4 @endif">
                 
                 @forelse ($services as $key=>$service)
@@ -112,7 +112,7 @@
                                 <div class="price">
                                     <button class="book active"><i class="fa-solid fa-bookmark"></i></button>
 
-                                    <button class="more-details">{{$service->price}} USD <span class="show-quantity">per {{$service->rate}}</span></button>
+                                    <button class="more-details">{{$service->price}}$ <span class="show-quantity">per {{$service->rate}}</span></button>
                                 </div>
                             </div>
                         </div>
@@ -121,17 +121,17 @@
                         <div class="lower">
                             <form method="" action="" wire:submit.prevent='submitOrder'>
                                 <div class="input">
-                                    <input wire:model.defer="selected_service_link.{{$service->id}}" placeholder="link" required type="url">
+                                    <input wire:model.defer="selected_service_link.{{$service->id}}" placeholder="link" required type="text">
                                     <button type="button" class="past-link"><i class="fa-solid fa-copy"></i></button>
                                 </div>
                                 <div class="range-details">
                                     <div class="range-input">
-                                        <div><span>Quantity</span> <output id="rangevalue">0</output></div>
+                                        <div><span>Quantity</span> <output id="rangevalue">{{$service->min_qte}}</output></div>
                                         <input wire:model.defer="selected_service_quantity.{{$service->id}}" required oninput="rangevalue.value=value,rangeprice.value=((value* {{$service->price}})/{{$service->rate}})" value="{{$service->min_qte}}" min="{{$service->min_qte}}" max="{{$service->max_qte}}" type="range">
                                     </div>
 
                                     <div class="price">
-                                        <h1><output id="rangeprice">0</output></h1><span>$</span></div>
+                                        <h1><output id="rangeprice">{{$service->min_qte * $service->price}}</output></h1><span>$</span></div>
                                 </div>
                                 <button type="submit">confirm</button>
                             </form>

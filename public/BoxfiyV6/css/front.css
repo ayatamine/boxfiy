@@ -238,9 +238,11 @@ border-radius: 9px;
 transition: 0.3s;
 font-family: CarosSoftBold;
 cursor: pointer;
-padding: 3px 29px;
+padding: 0 !important;
+display: flex;
+/* padding: 3px 29px; */
 }
-
+#login a,#signin a{padding: 6px 29px !important;}
 #login > a:hover{
     color: white;
 }
@@ -269,7 +271,9 @@ padding: 3px 29px;
     transition: 0.3s;
     font-family: CarosSoftBold;
     cursor: pointer;
-    padding: 3px 29px;
+    padding: 0 !important;
+    display: flex;
+    /* padding: 3px 29px; */
 }
 
 .mobile-nav {
@@ -1356,9 +1360,9 @@ transform: translateX(-50px);
     font-family: 'CarosSoftBold';
 }
 
-.services-container .service .upper .price .more-details .show-quantity {
+/* .services-container .service .upper .price .more-details .show-quantity {
     display: none;
-}
+} */
 
 .services-container .service .lower {
     display: none;

@@ -2,9 +2,9 @@
     <div class="container">
         <div class="row">
             <div class="nav-content">
-                <div class="logo">
+                <a href="{{auth()->check() ? route('wallet') : route('home') }}" class="logo">
                     <img src="{{asset('BoxfiyV6/images/logo/133413485_388547598914031_8784098996627337073_n.png')}}">
-                </div>
+                </a>
 
                 <div class="nav-elements">
                     <i class="open-mobile-nav fa-solid fa-bars"></i>

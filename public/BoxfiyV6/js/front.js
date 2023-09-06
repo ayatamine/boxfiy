@@ -72,12 +72,12 @@ let inputSignPage =document.getElementById("input-sign-page");
 let inputPassSignPage =document.getElementById("input-pass-sign-page");
 
 window.addEventListener("scroll",function(){
-    if(window.scrollY >= inputSignPage.offsetTop-500)
+    if(inputSignPage && window.scrollY >= inputSignPage.offsetTop-500)
     {
         inputSignPage.style="opacity:1; transform: translateX(0px);";
     }
 
-    if(window.scrollY >= inputPassSignPage.offsetTop-500)
+    if(inputPassSignPage && window.scrollY >= inputPassSignPage.offsetTop-500)
     {
         inputPassSignPage.style="opacity:1; transform: translateX(0px);";
     }
@@ -88,8 +88,8 @@ window.addEventListener("scroll",function(){
 window.addEventListener("load",function(){
     if(window.innerWidth >= 954)
     {
-        inputSignPage.style = "opacity: 1;transform:translateX(0px);";
-        inputPassSignPage.style = "opacity: 1;transform:translateX(0px);";
+        if(inputSignPage)    inputSignPage.style = "opacity: 1;transform:translateX(0px);";
+        if(inputPassSignPage)    inputPassSignPage.style = "opacity: 1;transform:translateX(0px);";
 
 
     }
@@ -104,20 +104,20 @@ window.addEventListener("load",function(){
 window.addEventListener("scroll",function(){
 
     
-    if(window.scrollY >= pay4.offsetTop-50)
-    {
-        pay4.style="opacity:1; transform: translateX(0px);";
-    }
+    // if(window.scrollY >= pay4.offsetTop-50)
+    // {
+    //     pay4.style="opacity:1; transform: translateX(0px);";
+    // }
 
     // if(window.scrollY >= pay5.offsetTop-50)
     // {
     //     pay5.style="opacity:1; transform: translateX(0px);";
     // }
 
-    if(window.scrollY >= pay6.offsetTop-50)
-    {
-        pay6.style="opacity:1; transform: translateX(0px);";
-    }
+    // if(window.scrollY >= pay6.offsetTop-50)
+    // {
+    //     pay6.style="opacity:1; transform: translateX(0px);";
+    // }
 
 })
 
@@ -218,12 +218,12 @@ $(document).ready(function() {
 
 
     if ($(".range-details").length) {
-        $(".more-details").click(function() {
-            $(this).children("span").fadeToggle(400);
-            $(this).parent().parent().parent().next().slideToggle(400);
-        })
+        // $(".more-details").click(function() {
+        //     $(this).children("span").fadeToggle(400);
+        //     $(this).parent().parent().parent().next().slideToggle(400);
+        // })
         $(".service .service-info").click(function() {
-            $(this).parent().children(".details").children(".price").children(".more-details").children("span").fadeToggle(400);
+            // $(this).parent().children(".details").children(".price").children(".more-details").children("span").fadeToggle(400);
             $(this).parent().next().slideToggle(400);
         })
         const rangeInputs = document.querySelectorAll('input[type="range"]')

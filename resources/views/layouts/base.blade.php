@@ -47,8 +47,11 @@
 
     @endswitch 
    >
-   
-        @include('layouts.partials.index_navigation')
+        @guest 
+          @include('layouts.partials.index_navigation') 
+        @else 
+          @include('layouts.partials.profile_navigation')
+        @endguest
         @yield('body')
         @include('layouts.partials.scripts')
         @yield('scripts')

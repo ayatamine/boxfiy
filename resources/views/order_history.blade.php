@@ -11,8 +11,16 @@
 </style>
 @endpush
 @section('content')
-<div class="row m-4">
-
+<div class="row mx-auto px-20 py-3 mt-24">
+  @if (session()->has('success'))
+  <x-dissmissable-alert type="success">
+      {{ session('success') }}
+  </x-dissmissable-alert>
+  @elseif(session()->has('error'))
+    <x-dissmissable-alert type="error">
+        {{ session('error') }}
+    </x-dissmissable-alert>
+  @endif 
   @if(count($orders))
   <table class="border-separate border-spacing-y-4 bg-none table-auto w-full text-xl mt-8">
     <thead class="h-[50px] ">
@@ -49,7 +57,7 @@
   </table>
   <div class="mt-5 flex justify-center items-center pagination">{{$orders->links()}}</div>
   @else 
-  <div class="bg-blue-200 text-blue-800 text-2xl p-5 py-6 rounded-lg mb-3 mt-8">
+  <div class="bg-blue-200 text-blue-800 text-2xl p-5 py-6 rounded-lg mb-3 mt-8 container">
    No order yet,Feel free to contact us, we are happy to help
   </div>
   @endif
