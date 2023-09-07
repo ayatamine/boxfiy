@@ -78,6 +78,7 @@ Route::get('terms-and-conditions', [App\Http\Controllers\Front\HomeController::c
 Route::get('privacy-policy', [App\Http\Controllers\Front\HomeController::class,'privacy'])->name('privacy');
 Route::get('services', [App\Http\Controllers\Front\HomeController::class,'services'])->name('services');
 Route::get('spaceremit/notify',[App\Http\Controllers\Front\PaymentController::class,'spaceremitNotify'])->name('spaceremit.notify');
+Route::get('api',[App\Http\Controllers\Front\HomeController::class,'apiPage'])->name('api_page');
 
 // Route::resource('service', App\Http\Controllers\Front\ServiceController::class)->only('index');
 

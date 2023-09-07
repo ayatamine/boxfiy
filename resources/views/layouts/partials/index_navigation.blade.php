@@ -20,7 +20,7 @@
                         </li>
 
                         <li>
-                            <a href="api.html">API</a>
+                            <a href="{{route('api_page')}}">API</a>
                         </li>
                         <li>
                             <a href="{{route('services')}}">Services</a>
@@ -77,7 +77,7 @@
 
 
                         <li>
-                            <a href="api.html">API</a>
+                            <a href="{{route('api_page')}}">API</a>
                         </li>
 
 

@@ -119,6 +119,12 @@ transition-duration: 0.3s;
     border: 0px;
     border-radius: 12px;
     margin-top: 20px;
+    font-size: 17px !important;
+    padding: 1.3rem !important;
+    background: none !important;
+    outline: none !important;
+    border: none !important;
+    width: -webkit-fill-available;
     
 }
 

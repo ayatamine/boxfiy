@@ -29,6 +29,10 @@ class HomeController extends Controller
     {
         return view('services');
     }
+    public function apiPage()
+    {
+        return view('api');
+    }
 
     
 }

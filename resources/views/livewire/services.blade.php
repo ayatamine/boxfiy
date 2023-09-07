@@ -9,7 +9,7 @@
     </div>
 
     <div id="filter-container" class="row flex justify-center justify-content-center ">
-        <section class="filter-box col-10 col-lg-11">
+        <section class="filter-box col-10 col-md-11">
             <div class="row !mx-0 justify-content-center flex items-center justify-center gap-6">
                 <div  wire:click.prevent.refetch="loadCategories" class="selection-btn mr-20 !mb-0 col-11 col-md-5 col-lg-3"><h3 style="display: inline;">Filter</h3> <speacer></speacer><i class="fa-solid fa-arrow-down"></i>
                 <ul id="listone" class="left-0">
@@ -29,7 +29,7 @@
                  
     
                     <div class=" col-11 col-lg-5">
-                        <div id="search-section" class="row align-items-center justify-content-center">
+                        <div id="search-section" class="row flex items-center gap-3 ">
                         <i class="fa-solid fa-magnifying-glass col-3"></i>
                         <input  wire:model.debounce.1000ms="search" class="search-box col-6 !mt-0" placeholder="Search In Services" type="search">
                         </div>
