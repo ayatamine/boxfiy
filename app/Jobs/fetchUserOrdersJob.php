@@ -1,43 +1,42 @@
 <?php
 
-namespace App\Console\Commands;
+namespace App\Jobs;
 
-use App\Models\User;
 use App\Models\Order;
 use Illuminate\Support\Str;
+use Illuminate\Bus\Queueable;
 use App\Models\BallanceHistory;
-use Illuminate\Console\Command;
-use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Queue\SerializesModels;
+use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Foundation\Bus\Dispatchable;
+use Illuminate\Contracts\Queue\ShouldBeUnique;
 
-class FetchOrdersState extends Command
+class fetchUserOrdersJob implements ShouldQueue
 {
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
-    protected $signature = 'app:fetch-orders-state';
+    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     /**
-     * The console command description.
-     *
-     * @var string
+     * Create a new job instance.
      */
-    protected $description = 'fetch orders status for each online user';
-
-    /**
-     * Execute the console command.
-     */
-    public function handle()
+    public $user;
+    public function __construct($user)
     {
-        $this->info('start fetching users orders status.');
+        $this->user = $user;
+    }
 
-        $users = User::where('last_seen', '>=', now()->subMinutes(5))->get();
-
-        foreach ($users as $user) {
+    /**
+     * Execute the job.
+     */
+    public function handle(): void
+    {
+        Log::info('start fetching user orders');
+        // $user= auth()->user();
+      
             // Fetch the user's orders
-            $orders = Order::where('user_id', $user->id)
+            $orders = Order::where('user_id', $this->user->id)
                 ->whereHas('service',function($query){
                     $query->where('data_source', 'api');
                 })
@@ -77,16 +76,15 @@ class FetchOrdersState extends Command
                             }
                         }
                     } elseif ($response->clientError()) {
-                        Log::error('There is an error from client side, please contact admins');
+                       Log::error('There is an error from client side, please contact admins');
                     } elseif ($response->serverError()) {
-                        Log::error('There is an error occured from api service');
+                       Log::error('There is an error occured from api service');
                     }
                 } catch (\Exception $ex) {
-                    Log::error('There is an error from client side, please contact admins');
+                   Log::error($ex->getMessage());
                 }
             }
-        }
+            Log::info('finish fetching user orders');
 
-        $this->info('Successfully fetched users orders status.');
     }
 }

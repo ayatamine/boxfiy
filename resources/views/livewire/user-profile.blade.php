@@ -6,6 +6,7 @@
     <div class="container">
         <div class="row">
             <form action="" method="" wire:submit.prevent="updateProfile" enctype="multipart/form-data">
+               {{-- <div class="grid grid-cols-1 md:grid-cols-2 "> --}}
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="user-image-name">
                         <label for="thumbnail" class="relative cursor-pointer">
@@ -16,6 +17,16 @@
                         <h1>{{fullName()}}</h1>
                     </div>
                 </div>
+                {{-- <div class="flex gap-2 items-center ">
+                    <button style="font-size: 12px;
+                    padding: 12px 10px !important;
+                    height: auto !important;
+                    width: 42%;margin:0 !important" >Genrate New Key          </button>
+                    <input style="font-size: 12px;
+                    padding: 12px 10px !important;
+                    height: auto !important;margin:0 !important" disabled  wire:model.defer="api_token" type="text" name="" required placeholder="*****************************"> 
+                </div> --}}
+               {{-- </div> --}}
 
                 <div class="row">
                     <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">

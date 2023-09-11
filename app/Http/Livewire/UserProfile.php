@@ -30,6 +30,7 @@ class UserProfile extends Component
        public $user;
        public $thumbnail;
        public $tomporary_image=false;
+       public $api_token;
     public function mount(){
         
         // $this->form->fill([
@@ -42,6 +43,7 @@ class UserProfile extends Component
         $this->username = $this->user->username;
         $this->full_name = $this->user->name;
         $this->email = $this->user->email;
+        $this->api_token = $this->user->api_token;
     }
     // public function getModelForm(){
     //     return User::class;

@@ -120,11 +120,15 @@
             <li class="col-6">add</li>
           </ul>
           <ul class="grid grid-cols-2">
-            <li class="col-6">Service</li>
+            <li class="col-6">service</li>
             <li class="col-6">Service Id</li>
           </ul>
           <ul class="grid grid-cols-2">
-            <li class="col-6">Quantity</li>
+            <li class="col-6">link</li>
+            <li class="col-6">The link to your social element</li>
+          </ul>
+          <ul class="grid grid-cols-2">
+            <li class="col-6">quantity</li>
             <li class="col-6">Needed Quantity</li>
           </ul>
           <ul class="grid grid-cols-2">

@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Front\Api\GlobalController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,5 +20,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 Route::prefix('v1')->group(function(){
 
-    // Route::get();
+    Route::post('/',[GlobalController::class,'handler']);
 });

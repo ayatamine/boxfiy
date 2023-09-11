@@ -3,9 +3,10 @@
 namespace App\Http\Livewire;
 
 
-use App\Providers\RouteServiceProvider;
-use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
+use App\Events\UserLoggedIn;
+use Illuminate\Support\Facades\Auth;
+use App\Providers\RouteServiceProvider;
 
 class HomeLogin extends Component
 {
@@ -32,7 +33,18 @@ class HomeLogin extends Component
 
             return;
         }
-
+        else{
+            $user = Auth::user();
+            if($user && $user->account_status == false)
+            {
+                Auth::logout();
+                $this->dispatchBrowserEvent('account-suspended');
+                return;
+            }
+           
+        }
+        //fetch user orders
+        event(new UserLoggedIn(Auth::user()));
         return redirect()->intended(route('home'));
     }
 
