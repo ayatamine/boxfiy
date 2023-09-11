@@ -63,14 +63,16 @@ Route::middleware('auth')->group(function () {
     // Route::get('/admin/notifications/mark-as-read', 'markNotificationsAsRead')->name('notification.mark-as-readAll');
     // Route::get('//notifications/{id}/mark-as-read', 'markSingleNotificationsAsRead')->name('notification.mark-as-read');
 
-    Route::resource('tickets', App\Http\Controllers\Front\TicketController::class);
-    Route::post('tickets/{id}/reply', [App\Http\Controllers\Front\TicketController::class,'ticketReply'])->name('ticket.reply');
-    Route::controller(UserController::class)->group(function(){
-        Route::get('add-funds', 'addFunds')->name('addFunds');
-        Route::get('wallet', 'wallet')->name('wallet');
-        Route::get('order-history', 'orderHistory')->name('orders.index');
-        Route::get('notifications', 'notifications')->name('notifications');
-        Route::get('notifications/mark-as-read', 'markNotificationsAsRead')->name('notification.mark-as-readAll');
+    Route::middleware('verified')->group(function(){
+        Route::resource('tickets', App\Http\Controllers\Front\TicketController::class);
+        Route::post('tickets/{id}/reply', [App\Http\Controllers\Front\TicketController::class,'ticketReply'])->name('ticket.reply');
+        Route::controller(UserController::class)->group(function(){
+            Route::get('add-funds', 'addFunds')->name('addFunds');
+            Route::get('wallet', 'wallet')->name('wallet');
+            Route::get('order-history', 'orderHistory')->name('orders.index');
+            Route::get('notifications', 'notifications')->name('notifications');
+            Route::get('notifications/mark-as-read', 'markNotificationsAsRead')->name('notification.mark-as-readAll');
+        });
     });
 });
 Route::get('about-us', [App\Http\Controllers\Front\HomeController::class,'aboutUs'])->name('about');
