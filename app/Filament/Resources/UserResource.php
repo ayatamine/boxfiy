@@ -2,23 +2,27 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\UserResource\Pages;
-use App\Filament\Resources\UserResource\RelationManagers;
-use App\Models\User;
+use Carbon\Carbon;
 use Filament\Forms;
-use Filament\Resources\Form;
-use Filament\Resources\Resource;
-use Filament\Resources\Table;
+use App\Models\User;
 use Filament\Tables;
+use Filament\Resources\Form;
+use Filament\Resources\Table;
+use Filament\Resources\Resource;
+use Filament\Forms\Components\DatePicker;
 use Illuminate\Database\Eloquent\Builder;
+use App\Filament\Resources\UserResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use App\Filament\Resources\UserResource\RelationManagers;
+use App\Filament\Resources\UserResource\Widgets\UserStats;
 
 class UserResource extends Resource
 {
     protected static ?string $model = User::class;
+    protected static ?string $resource = User::class;
     protected static ?string $recordTitleAttribute = 'name';
     protected static ?string $navigationIcon = 'heroicon-o-users';
-    public static function canCreate():bool
+    public static function canCreate(): bool
     {
         return false;
     }
@@ -40,15 +44,15 @@ class UserResource extends Resource
                 //     ->required()
                 //     ->maxLength(255),
                 Forms\Components\Grid::make(2)
-                ->schema([
-                Forms\Components\TextInput::make('username')
-                    ->unique(table: User::class,ignoreRecord:true)
-                    ->required()
-                    ->maxLength(255)
-                    ->disabled(),
-                    Forms\Components\TextInput::make('wallet_balance')->numeric(),
+                    ->schema([
+                        Forms\Components\TextInput::make('username')
+                            ->unique(table: User::class, ignoreRecord: true)
+                            ->required()
+                            ->maxLength(255)
+                            ->disabled(),
+                        Forms\Components\TextInput::make('wallet_balance')->numeric(),
 
-                ]),
+                    ]),
                 Forms\Components\Toggle::make('account_status'),
             ]);
     }
@@ -64,19 +68,48 @@ class UserResource extends Resource
                 Tables\Columns\TextColumn::make('created_at')->label('Joined At')
                     ->date(),
                 Tables\Columns\ToggleColumn::make('account_status')->label('Account Status')
-                    // ->action(
-                    //     Tables\Actions\Action::make('select')
-                    //         ->requiresConfirmation()
-                    //         ->action(function (User $record): void {
-                    //             $this->dispatchBrowserEvent('select-post', [
-                    //                 'post' => $record->getKey(),
-                    //             ]);
-                    //         }),
-                    // )
-                    
+                // ->action(
+                //     Tables\Actions\Action::make('select')
+                //         ->requiresConfirmation()
+                //         ->action(function (User $record): void {
+                //             $this->dispatchBrowserEvent('select-post', [
+                //                 'post' => $record->getKey(),
+                //             ]);
+                //         }),
+                // )
+
             ])
             ->filters([
                 Tables\Filters\TrashedFilter::make(),
+                Tables\Filters\Filter::make('created_at')
+                    ->form([
+                        DatePicker::make('from'),
+                        DatePicker::make('until'),
+                    ])
+                    ->query(function (Builder $query, array $data): Builder {
+                        return $query
+                            ->when(
+                                $data['from'],
+                                fn (Builder $query, $date): Builder => $query->whereDate('created_at', '>=', $date),
+                            )
+                            ->when(
+                                $data['until'],
+                                fn (Builder $query, $date): Builder => $query->whereDate('created_at', '<=', $date),
+                            );
+                    })
+                    ->indicateUsing(function (array $data): array {
+                        $indicators = [];
+
+                        if ($data['from'] ?? null) {
+                            $indicators['from'] = 'Created from ' . Carbon::parse($data['from'])->toFormattedDateString();
+                        }
+
+                        if ($data['until'] ?? null) {
+                            $indicators['until'] = 'Created until ' . Carbon::parse($data['until'])->toFormattedDateString();
+                        }
+
+                        return $indicators;
+                    })
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
@@ -91,14 +124,14 @@ class UserResource extends Resource
                 Tables\Actions\RestoreBulkAction::make(),
             ]);
     }
-    
+
     public static function getRelations(): array
     {
         return [
             //
         ];
     }
-    
+
     public static function getPages(): array
     {
         return [
@@ -107,12 +140,18 @@ class UserResource extends Resource
             'edit' => Pages\EditUser::route('/{record}/edit'),
             'view' => Pages\ViewUser::route('/{record}'),
         ];
-    }    
+    }
     public static function getEloquentQuery(): Builder
     {
         return parent::getEloquentQuery()
             ->withoutGlobalScopes([
                 SoftDeletingScope::class,
             ]);
+    }
+    protected function getHeaderWidgets(): array
+    {
+        return [
+             UserStats::class
+        ];
     }
 }
