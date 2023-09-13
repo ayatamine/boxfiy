@@ -2,9 +2,12 @@
 
 namespace App\Filament\Widgets;
 
+
 use App\Models\Order;
 use Flowframe\Trend\Trend;
 use Flowframe\Trend\TrendValue;
+use Filament\Forms\Components\DatePicker;
+use Illuminate\Support\Carbon;
 use Leandrocfe\FilamentApexCharts\Widgets\ApexChartWidget;
 
 class OrdersChart extends ApexChartWidget
@@ -40,30 +43,32 @@ class OrdersChart extends ApexChartWidget
             Order::query()
         )
         ->between(
-            start: now()->startOfYear(),
-            end: now()->endOfYear(),
+            // start: now()->startOfYear(),
+            // end: now()->endOfYear(),
+            start: Carbon::parse($this->filterFormData['date_start']), 
+            end: Carbon::parse($this->filterFormData['date_end']), 
         )
-        ->perMonth()
+        ->perDay()
         ->count();
         $canceled = Trend::model(Order::class)
          ->query(  
             Order::query()->where('status','canceled')
         )
         ->between(
-            start: now()->startOfYear(),
-            end: now()->endOfYear(),
+            start: Carbon::parse($this->filterFormData['date_start']), 
+            end: Carbon::parse($this->filterFormData['date_end']), 
         )
-        ->perMonth()
+        ->perDay()
         ->count();
         $completed = Trend::model(Order::class)
          ->query(  
             Order::query()->where('status','completed')
         )
         ->between(
-            start: now()->startOfYear(),
-            end: now()->endOfYear(),
+            start: Carbon::parse($this->filterFormData['date_start']), 
+            end: Carbon::parse($this->filterFormData['date_end']), 
         )
-        ->perMonth()
+        ->perDay()
         ->count();
         return [
             'chart' => [
@@ -72,7 +77,7 @@ class OrdersChart extends ApexChartWidget
             ],
             'series' => [
                 [
-                    'name' => 'Orders count',
+                    'name' => 'Completed Orders',
                     'data' =>  $data->map(fn (TrendValue $value) => $value->aggregate),
                 ],
                 [
@@ -85,7 +90,7 @@ class OrdersChart extends ApexChartWidget
                 ],
             ],
             'xaxis' => [
-                'categories' => ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+                'categories' => $data->map(fn (TrendValue $value) => $value->date),
                 'labels' => [
                     'style' => [
                         'colors' => '#9ca3af',
@@ -107,8 +112,17 @@ class OrdersChart extends ApexChartWidget
             ],
         ];
     }
-    protected function getFilters(): ?array
+    // protected function getFilters(): ?array
+    // {
+    //     return ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    // }
+    protected function getFormSchema(): array
     {
-        return ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+        return [
+            DatePicker::make('date_start')
+                ->default(now()->subMonth()),
+            DatePicker::make('date_end')
+                ->default(now()),
+        ];
     }
 }

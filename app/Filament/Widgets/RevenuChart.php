@@ -4,7 +4,9 @@ namespace App\Filament\Widgets;
 
 use App\Models\Order;
 use Flowframe\Trend\Trend;
+use Illuminate\Support\Carbon;
 use Flowframe\Trend\TrendValue;
+use Filament\Forms\Components\DatePicker;
 use Leandrocfe\FilamentApexCharts\Widgets\ApexChartWidget;
 
 class RevenuChart extends ApexChartWidget
@@ -38,8 +40,8 @@ class RevenuChart extends ApexChartWidget
             Order::query()->where('status','completed')
         )
         ->between(
-            start: now()->subMonths(2),
-            end: now()->addMonth(2),
+            start: Carbon::parse($this->filterFormData['date_start']), 
+            end: Carbon::parse($this->filterFormData['date_end']), 
         )
         ->perDay()
         ->sum('price');
@@ -88,6 +90,15 @@ class RevenuChart extends ApexChartWidget
                     'horizontal' => false,
                 ],
             ],
+        ];
+    }
+    protected function getFormSchema(): array
+    {
+        return [
+            DatePicker::make('date_start')
+                ->default(now()->subMonth()),
+            DatePicker::make('date_end')
+                ->default(now()),
         ];
     }
 }

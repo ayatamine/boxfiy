@@ -1,0 +1,1 @@
+{{ \Illuminate\Support\Str::replace('_',' ',$getState()) }}

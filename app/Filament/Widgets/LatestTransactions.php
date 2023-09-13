@@ -6,6 +6,7 @@ use Closure;
 use Carbon\Carbon;
 use Filament\Tables;
 use App\Models\Order;
+use App\Models\BallanceHistory;
 use Filament\Tables\Filters\Filter;
 use Filament\Tables\Filters\Layout;
 use Illuminate\Support\Facades\Request;
@@ -21,21 +22,27 @@ class LatestTransactions extends BaseWidget
         return Request::segment(2) == "latest-transaction";
     }
     protected function getTableQuery(): Builder
-    { 
-        return Order::with('user:id,name,email')->select('id','user_id','price','created_at')->latest();
+    {  
+        return BallanceHistory::with('user:id,name,email')
+        ->with('paymentGateway:id,name')
+        ->latest();
     }
 
     protected function getTableColumns(): array
     {
         return [
             Tables\Columns\TextColumn::make('user.name')->limit(70)->sortable()->searchable()
-            ->url(fn (Order $record): string =>route('filament.resources.users.view',$record->user->id))
+            ->url(fn (BallanceHistory $record): string =>route('filament.resources.users.view',$record->user->id))
             ->openUrlInNewTab(),
 
             Tables\Columns\TextColumn::make('user.email')
             ->label('Email')->sortable()->searchable(),
-            Tables\Columns\TextColumn::make('price')->view('filament.tables.columns.price-column')
+            Tables\Columns\TextColumn::make('amount')->view('filament.tables.columns.price-column')
             ->label('Amount')->sortable()->searchable(),
+            Tables\Columns\TextColumn::make('paymentGateway.name')
+            ->label('Payment Method')->sortable()->searchable(),
+            Tables\Columns\TextColumn::make('transaction_type')->view('filament.tables.columns.transaction-type-column')
+            ->sortable()->searchable(),
             Tables\Columns\TextColumn::make('created_at')->date()->sortable()->searchable(),
             
         ];

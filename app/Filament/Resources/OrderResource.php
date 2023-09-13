@@ -69,7 +69,7 @@ class OrderResource extends Resource
                         ->url(fn (Order $record): string => $record->link)
                         ->openUrlInNewTab(),
                 Tables\Columns\TextColumn::make('amount')->sortable()->searchable(),
-                Tables\Columns\TextColumn::make('price')->sortable()->searchable(),
+                Tables\Columns\TextColumn::make('price')->view('filament.tables.columns.price-column')->sortable()->searchable(),
                 
                 Tables\Columns\BadgeColumn::make('status')->sortable()->searchable()
                         ->enum([
