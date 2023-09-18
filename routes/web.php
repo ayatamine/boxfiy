@@ -23,7 +23,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::view('/', 'home')->name('home');
+Route::get('/', function(){
+    return auth()->check() ?  redirect()->route('wallet') :  view('home');
+})->name('home');
 
 Route::middleware('guest')->group(function () {
     Route::get('login', Login::class)

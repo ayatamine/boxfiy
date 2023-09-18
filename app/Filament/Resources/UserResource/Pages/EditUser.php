@@ -25,7 +25,7 @@ class EditUser extends EditRecord
                 $BallanceHistory = BallanceHistory::create(
                     [
                         'user_id'=>$this->record->id,
-                        'transaction_type' =>'credit_ballance',
+                        'transaction_type' =>BallanceHistory::$CB,
                         'amount' =>$data['amount'],
                         'payment_gateway_id'=>0,
                     ]

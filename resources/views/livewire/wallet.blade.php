@@ -31,18 +31,180 @@
             </div>
 
             <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
-                <div class="coin-content">
+                <div class="coin-content" x-data="{ modelOpen: false }"  x-cloak>
                     <img src="{{asset('BoxfiyV6/images/icons/8.png')}}">
-                    <h1>0 <span>coin</span></h1>
-                    <a href="#"><i class="fa-solid fa-arrow-right-arrow-left"></i></a>
+                    <h1>{{auth()->user()->award_points}} <span>coin</span></h1>
+                    {{-- <a href="#"><i class="fa-solid fa-arrow-right-arrow-left"></i></a> --}}
+                    <a @click="modelOpen =!modelOpen"  class="special" href="#">!</a>
+                    <div x-show="modelOpen" class="fixed inset-0 z-50 overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+                        <div class="flex items-end justify-center min-h-screen px-4 text-center md:items-center sm:block sm:p-0">
+                            <div x-cloak @click="modelOpen = false" x-show="modelOpen" 
+                                x-transition:enter="transition ease-out duration-300 transform"
+                                x-transition:enter-start="opacity-0" 
+                                x-transition:enter-end="opacity-100"
+                                x-transition:leave="transition ease-in duration-200 transform"
+                                x-transition:leave-start="opacity-100" 
+                                x-transition:leave-end="opacity-0"
+                                class="fixed inset-0 transition-opacity bg-gray-500 bg-opacity-40" aria-hidden="true"
+                            ></div>
+                
+                            <div x-cloak x-show="modelOpen" 
+                                x-transition:enter="transition ease-out duration-300 transform"
+                                x-transition:enter-start="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95" 
+                                x-transition:enter-end="opacity-100 translate-y-0 sm:scale-100"
+                                x-transition:leave="transition ease-in duration-200 transform"
+                                x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100" 
+                                x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+                                class="inline-block w-full md:w-4/5 mx-auto p-8 my-20 overflow-hidden text-left transition-all transform bg-[#15182C] dark:bg-gray-800 text-white rounded-lg shadow-xl 2xl:max-w-2xl"
+                            >
+                                <div class="flex items-center justify-between space-x-4">
+                                    {{-- <h1 class="text-xl font-medium text-gray-800 ">Compare plans</h1> --}}
+                
+                                    <button @click="modelOpen = false" class=" focus:outline-none ">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                        </svg>
+                                    </button>
+                                </div>
+                
+                                <section class="">
+                                    <div class="container px-6 py-8 mx-auto">
+                                        <div class="sm:flex sm:items-center sm:justify-between">
+                                            <div>
+                                                <h2 class="h3 font-bold">Points System</h2>
+                                                {{-- <p class="mt-4 text-gray-500 dark:text-gray-400">No Contracts. No surorise fees.</p> --}}
+                                            </div>
+                                        </div>
+                                        {{-- points on orders --}}
+                                        <div class=" mt-16 -mx-6  ">
+                                            <div class="px-6 py-6 transition-colors duration-200 transform bg-gray-700 rounded-lg dark:bg-gray-600">
+                                                {{-- <p class="text-3xl font-medium text-gray-100">{{$item->title}}</p> --}}
+                                                {{-- <h4 class="mt-2 text-4xl font-semibold text-gray-100">$99 <span class="text-base font-normal text-gray-400">/ Month</span></h4> --}}
+                                                {{-- <p class="mt-4 text-gray-300">{{$item->description}}</p> --}}
+                            
+                                                <div class="mt-8 space-y-8">
+                                                    <div class="flex items-center" >
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="w-9 h-9 text-[#F38E06]" viewBox="0 0 20 20" fill="currentColor">
+                                                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                                                        </svg>
+                            
+                                                        <span class="mx-4 text-gray-400 h4 leading-7">Order less then 0.5$ dollars are equivalent to {{env('FIRST_POINTS_INTERVAL')}} point</span>
+                                                    </div>
+                                                    
+                                                </div>
+                                                <div class="mt-8 space-y-8">
+                                                    <div class="flex items-center" >
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="w-9 h-9 text-[#F38E06]" viewBox="0 0 20 20" fill="currentColor">
+                                                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                                                        </svg>
+                            
+                                                        <span class="mx-4 text-gray-400 h4 leading-7">Order between 0.5 then 1$ dollars are equivalent to {{env('SECOND_POINTS_INTERVAL')}} point</span>
+                                                    </div>
+                                                    
+                                                </div>
+                                                <div class="mt-8 space-y-8">
+                                                    <div class="flex items-center" >
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="w-9 h-9 text-[#F38E06]" viewBox="0 0 20 20" fill="currentColor">
+                                                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                                                        </svg>
+                            
+                                                        <span class="mx-4 text-gray-400 h4 leading-7">Order more then 1$ dollars are equivalent to {{env('THIRD_POINTS_INTERVAL')}} point</span>
+                                                    </div>
+                                                    
+                                                </div>
+                            
+                                                
+                                            </div>
+                            
+                                        </div>
+                                    </div>
+                                </section>
+                            </div>
+                        </div>
+                    </div>
+                   
                 </div>
             </div>
 
             <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
-                <div class="coin-content">
+                <div class="coin-content" x-data="{ modelOpen: false }" x-cloak>
                     <img src="{{asset('BoxfiyV6/images/icons/9.png')}}">
                     <h1>Professional</h1>
-                    <a class="special" href="#">!</a>
+                    <a @click="modelOpen =!modelOpen"  class="special" href="#">!</a>
+                    <div x-show="modelOpen" class="fixed inset-0 z-50 overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+                        <div class="flex items-end justify-center min-h-screen px-4 text-center md:items-center sm:block sm:p-0">
+                            <div x-cloak @click="modelOpen = false" x-show="modelOpen" 
+                                x-transition:enter="transition ease-out duration-300 transform"
+                                x-transition:enter-start="opacity-0" 
+                                x-transition:enter-end="opacity-100"
+                                x-transition:leave="transition ease-in duration-200 transform"
+                                x-transition:leave-start="opacity-100" 
+                                x-transition:leave-end="opacity-0"
+                                class="fixed inset-0 transition-opacity bg-gray-500 bg-opacity-40" aria-hidden="true"
+                            ></div>
+                
+                            <div x-cloak x-show="modelOpen" 
+                                x-transition:enter="transition ease-out duration-300 transform"
+                                x-transition:enter-start="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95" 
+                                x-transition:enter-end="opacity-100 translate-y-0 sm:scale-100"
+                                x-transition:leave="transition ease-in duration-200 transform"
+                                x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100" 
+                                x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+                                class="inline-block w-full md:w-4/5 mx-auto p-8 my-20 overflow-hidden text-left transition-all transform bg-[#15182C] dark:bg-gray-800 text-white rounded-lg shadow-xl 2xl:max-w-2xl"
+                            >
+                                <div class="flex items-center justify-between space-x-4">
+                                    {{-- <h1 class="text-xl font-medium text-gray-800 ">Compare plans</h1> --}}
+                
+                                    <button @click="modelOpen = false" class=" focus:outline-none ">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                        </svg>
+                                    </button>
+                                </div>
+                
+                                <section class="">
+                                    <div class="container px-6 py-8 mx-auto">
+                                        <div class="sm:flex sm:items-center sm:justify-between">
+                                            <div>
+                                                <h2 class="h3 font-bold">Award on orders</h2>
+                                                {{-- <p class="mt-4 text-gray-500 dark:text-gray-400">No Contracts. No surorise fees.</p> --}}
+                                            </div>
+                                        </div>
+                            
+                                        <div class="grid gap-6 mt-16 -mx-6 sm:gap-8 sm:grid-cols-2 lg:grid-cols-4 ">
+                                            @foreach (\App\Models\AccountDegree::get() as $item)
+                                            <div class="px-6 py-6 transition-colors duration-200 transform bg-gray-700 rounded-lg dark:bg-gray-600">
+                                                <p class="text-3xl font-medium text-gray-100">{{$item->title}}</p>
+                                                {{-- <h4 class="mt-2 text-4xl font-semibold text-gray-100">$99 <span class="text-base font-normal text-gray-400">/ Month</span></h4> --}}
+                                                <p class="mt-4 text-gray-300">{{$item->description}}</p>
+                            
+                                                <div class="mt-8 space-y-8">
+                                                    @forelse ($item->properties as $property)
+                                                    <div class="flex items-center">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 text-[#F38E06]" viewBox="0 0 20 20" fill="currentColor">
+                                                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                                                        </svg>
+                            
+                                                        <span class="mx-4 text-gray-400 text-xl">{{$property['property']}}</span>
+                                                    </div>
+                                                    @empty
+                                                    <div class="flex items-center">
+                                                        <span class="mx-4 text-gray-400 text-xl">No feature adde yet</span>
+                                                    </div>
+                                                    @endforelse
+                                                    
+                                                </div>
+                            
+                                                
+                                            </div>
+                                            @endforeach
+                            
+                                        </div>
+                                    </div>
+                                </section>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -127,7 +289,7 @@
                                 <div class="range-details">
                                     <div class="range-input">
                                         <div><span>Quantity</span> <output id="rangevalue">{{$service->min_qte}}</output></div>
-                                        <input wire:model.defer="selected_service_quantity.{{$service->id}}" required oninput="rangevalue.value=value,rangeprice.value=((value* {{$service->price}})/{{$service->rate}})" value="{{$service->min_qte}}" min="{{$service->min_qte}}" max="{{$service->max_qte}}" type="range">
+                                        <input @disabled($service->rate) wire:model.defer="selected_service_quantity.{{$service->id}}" required oninput="rangevalue.value=value,rangeprice.value=((value* {{$service->price}})/{{$service->rate}})" value="{{$service->min_qte}}" min="{{$service->min_qte}}" max="{{$service->max_qte}}" type="range">
                                     </div>
 
                                     <div class="price">
@@ -149,4 +311,5 @@
             </div>
         </div>
     </div>
+
 </section>

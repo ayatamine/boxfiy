@@ -2,6 +2,9 @@
 @section('title','Wallet')
 @push('style-c')
 <link rel="stylesheet" href="{{asset('BoxfiyV6/css/services.css')}}">
+<style>
+  [x-cloak] { display: none !important }
+</style>
 @endpush
 @section('content')
   <livewire:wallet>
@@ -37,4 +40,5 @@ Swal.fire({
 })
  
 </script>
+
 @endsection

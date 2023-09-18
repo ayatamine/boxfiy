@@ -93,8 +93,9 @@ class Wallet extends Component
                             'link' => $link,
                             'quantity' => $quantity,
                         ]);
-
+                    if(isset($response->json()['error'])) throw new \Exception($response->json()['error'],500);
                     if ($response->successful()) {
+                       
                         $order = Order::create([
                             'service_id' => $service->id,
                             'order_number' => $response->json()['order'],
@@ -105,15 +106,29 @@ class Wallet extends Component
                             'status' => 'pending'
                         ]);
                     } elseif ($response->clientError()) {
-                        session()->flash('error', 'There is an error from client side, please contact admins');
+                        dd('sdf');
+                        session()->flash('error', 'There is an error from client side, please contact admins with this :'.isset($response->json()['error']) ? $response->json()['error'] : '');
                         return back();
                     } elseif ($response->serverError()) {
-                        session()->flash('error', 'There is an error occured from api service');
+                        dd('sdfsdf');
+                        session()->flash('error', 'There is an error occured from api service, Please contact admins with this :'.isset($response->json()['error']) ? $response->json()['error'] : '');
                         return back();
                     }
                 }
                 if ($order) {
                     auth()->user()->decrement('wallet_balance', $order->price);
+                    switch ($order->price) {
+                        case ($order->price < 0.3):
+                            auth()->user()->increment('award_points', env('FIRST_POINTS_INTERVAL'));
+                            break;
+                        case ($order->price >= 0.3 &&  $order->price <= 0.5):
+                            auth()->user()->increment('award_points', env('SECOND_POINTS_INTERVAL'));
+                            break;
+                        
+                        default:
+                            auth()->user()->increment('award_points', env('THIRD_POINTS_INTERVAL'));
+                            break;
+                    }
                     $BallanceHistory = BallanceHistory::create([
                         'user_id' => auth()->id(),
                         'transaction_type' => BallanceHistory::$PURSHASE,

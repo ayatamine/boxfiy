@@ -40,7 +40,8 @@ class User extends Authenticatable implements MustVerifyEmail,FilamentUser
         'is_admin',
         'account_status',
         'last_seen',
-        'api_token'
+        'api_token',
+        'award_points'
     ];
     protected static function booted()
     {

@@ -25,6 +25,7 @@ class LatestTransactions extends BaseWidget
     {  
         return BallanceHistory::with('user:id,name,email')
         ->with('paymentGateway:id,name')
+        ->whereNot('transaction_type',BallanceHistory::$PURSHASE)
         ->latest();
     }
 

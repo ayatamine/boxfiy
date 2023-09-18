@@ -8,11 +8,14 @@ use App\Models\User;
 use Filament\Tables;
 use Filament\Resources\Form;
 use Filament\Resources\Table;
+use App\Models\BallanceHistory;
 use Filament\Resources\Resource;
+use Filament\Tables\Actions\Action;
 use Filament\Forms\Components\DatePicker;
 use Illuminate\Database\Eloquent\Builder;
 use App\Filament\Resources\UserResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use App\Notifications\User\BalanceCreditedNotification;
 use App\Filament\Resources\UserResource\RelationManagers;
 use App\Filament\Resources\UserResource\Widgets\UserStats;
 
@@ -67,7 +70,8 @@ class UserResource extends Resource
                 // Tables\Columns\IconColumn::make('verified_email')->label('Verified Email'),
                 Tables\Columns\TextColumn::make('created_at')->label('Joined At')
                     ->date(),
-                Tables\Columns\ToggleColumn::make('account_status')->label('Account Status')
+                Tables\Columns\ToggleColumn::make('account_status')->label('Account Status'),
+                Tables\Columns\TextColumn::make('wallet_balance')->label('Balance'),
                 // ->action(
                 //     Tables\Actions\Action::make('select')
                 //         ->requiresConfirmation()
@@ -117,11 +121,34 @@ class UserResource extends Resource
                 Tables\Actions\DeleteAction::make(),
                 Tables\Actions\ForceDeleteAction::make(),
                 Tables\Actions\RestoreAction::make(),
+                Action::make('Add Balance')
+                ->action(function (User $record,array $data): void {
+                    $record->increment('wallet_balance' ,$data['amount']);
+                    $BallanceHistory = BallanceHistory::create(
+                        [
+                            'user_id'=>$record->id,
+                            'transaction_type' =>BallanceHistory::$CB,
+                            'amount' =>$data['amount'],
+                            'payment_gateway_id'=>0,
+                        ]
+                        );
+    
+                        $record->notify(new BalanceCreditedNotification($record->name,$BallanceHistory));
+                })
+                ->color('warning')
+                ->mountUsing(fn (Forms\ComponentContainer $form, User $record) => $form->fill([
+                    'wallet_balance' => $record->wallet_balance,
+                ]))
+                ->form([
+                    Forms\Components\TextInput::make('wallet_balance')->label('Current Balance')->numeric()->disabled(),
+                    Forms\Components\TextInput::make('amount')->numeric()
+                ])
             ])
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make(),
                 Tables\Actions\ForceDeleteBulkAction::make(),
                 Tables\Actions\RestoreBulkAction::make(),
+                
             ]);
     }
 
