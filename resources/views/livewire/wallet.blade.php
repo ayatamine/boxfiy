@@ -289,7 +289,7 @@
                                 <div class="range-details">
                                     <div class="range-input">
                                         <div><span>Quantity</span> <output id="rangevalue">{{$service->min_qte}}</output></div>
-                                        <input @disabled($service->rate) wire:model.defer="selected_service_quantity.{{$service->id}}" required oninput="rangevalue.value=value,rangeprice.value=((value* {{$service->price}})/{{$service->rate}})" value="{{$service->min_qte}}" min="{{$service->min_qte}}" max="{{$service->max_qte}}" type="range">
+                                        <input @disabled($service->rate == 1) wire:model.defer="selected_service_quantity.{{$service->id}}" required oninput="rangevalue.value=value,rangeprice.value=((value* {{$service->price}})/{{$service->rate}})" value="{{$service->min_qte}}" min="{{$service->min_qte}}" max="{{$service->max_qte}}" type="range">
                                     </div>
 
                                     <div class="price">

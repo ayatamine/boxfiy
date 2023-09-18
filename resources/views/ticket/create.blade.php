@@ -56,7 +56,7 @@
   
       <!-- Submit Button -->
       <div class="mb-4">
-        <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-3 px-5 rounded focus:outline-none focus:ring focus:ring-blue-200">Submit Ticket</button>
+        <button type="submit" class="bg-[#f38e06] hover:bg-[#fc9c1e] text-white font-bold py-3 px-5 rounded focus:outline-none focus:ring focus:ring-blue-200">Submit Ticket</button>
       </div>
     </form>
   </div>
