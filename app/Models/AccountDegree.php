@@ -17,5 +17,5 @@ class AccountDegree extends Model
     ];
     protected $casts=[
         'properties'=>'json'
-    ];
+    ]; 
 }

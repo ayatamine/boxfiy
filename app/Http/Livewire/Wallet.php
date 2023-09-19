@@ -106,11 +106,9 @@ class Wallet extends Component
                             'status' => 'pending'
                         ]);
                     } elseif ($response->clientError()) {
-                        dd('sdf');
                         session()->flash('error', 'There is an error from client side, please contact admins with this :'.isset($response->json()['error']) ? $response->json()['error'] : '');
                         return back();
                     } elseif ($response->serverError()) {
-                        dd('sdfsdf');
                         session()->flash('error', 'There is an error occured from api service, Please contact admins with this :'.isset($response->json()['error']) ? $response->json()['error'] : '');
                         return back();
                     }

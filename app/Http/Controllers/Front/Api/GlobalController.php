@@ -149,7 +149,7 @@ class GlobalController extends Controller
                             'link' => $request['link'],
                             'quantity' => $request['quantity'],
                         ]);
-
+                        if(isset($response->json()['error'])) throw new \Exception($response->json()['error'],500);
                     if ($response->successful()) {
                         $order = Order::create([
                             'service_id' => $service->id,
@@ -161,15 +161,27 @@ class GlobalController extends Controller
                             'status' => 'pending'
                         ]);
                     } elseif ($response->clientError()) {
-                        session()->flash('error', 'There is an error from client side, please contact admins');
+                        session()->flash('error', 'There is an error from client side, please contact admins :'.isset($response->json()['error']) ? $response->json()['error'] : '');
                         return back();
                     } elseif ($response->serverError()) {
-                        session()->flash('error', 'There is an error occured from api service');
+                        session()->flash('error', 'There is an error occured from api service :'.isset($response->json()['error']) ? $response->json()['error'] : '');
                         return back();
                     }
                 }
                 if ($order) {
                     $user->decrement('wallet_balance', $order->price);
+                    switch ($order->price) {
+                        case ($order->price < 0.3):
+                             $user->increment('award_points', env('FIRST_POINTS_INTERVAL'));
+                            break;
+                        case ($order->price >= 0.3 &&  $order->price <= 0.5):
+                             $user->increment('award_points', env('SECOND_POINTS_INTERVAL'));
+                            break;
+                        
+                        default:
+                             $user->increment('award_points', env('THIRD_POINTS_INTERVAL'));
+                            break;
+                    }
                     $BallanceHistory = BallanceHistory::create([
                         'user_id' => $user->id,
                         'transaction_type' => BallanceHistory::$PURSHASE,
@@ -184,7 +196,7 @@ class GlobalController extends Controller
                     return response()->json(['order'=>$order->id],200);
                 }
             } catch (\Exception $ex) {
-                session()->flash('error', 'There is an error from client side, please contact admins WITH THIS/' . $ex->getMessage());
+                session()->flash('error', 'There is an error from client side, please contact admins WITH THIS : ' . $ex->getMessage());
             }
         });
     }
